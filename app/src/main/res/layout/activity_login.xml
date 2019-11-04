@@ -5,43 +5,16 @@
     android:paddingRight="16dp"
     android:paddingTop="16dp"
     android:paddingBottom="16dp"
-    tools:context=".LoginActivity">
+    tools:context=".LoginActivity"><![CDATA[
     android:id="@+id/mainlayout">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Username"
-        android:id="@+id/textView3"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/retrUsername"
-        android:layout_alignBottom="@+id/textView3"
-        />
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Password"
-        android:id="@+id/textView4"
-        android:layout_below="@+id/textView3"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_marginTop="85dp" />
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/retrPassword"
-        android:layout_alignTop="@+id/textView4"
-        android:layout_centerHorizontal="true" />
 
-    <!--<Button-->
+
+
+    ]]><!--<Button-->
     <!--android:layout_width="wrap_content"-->
     <!--android:layout_height="wrap_content"-->
     <!--android:text="New User"-->
@@ -51,41 +24,124 @@
     <!--android:layout_toRightOf="@+id/textView4"-->
     <!--android:layout_toEndOf="@+id/textView4" />-->
 
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Login"
-        android:id="@+id/backTo1Button"
-        android:onClick="toSettings"
-        android:layout_centerVertical="true"
+    <TextView
+        android:id="@+id/name2"
+        android:layout_width="111dp"
+        android:layout_height="43dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentEnd="true"
         android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true" />
+        android:layout_marginStart="142dp"
+        android:layout_marginLeft="142dp"
+        android:layout_marginEnd="142dp"
+        android:layout_marginRight="142dp"
+        android:text="Stride."
+        android:textSize="30dp"
+        android:textStyle="bold" />
 
     <EditText
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
         android:id="@+id/userInput"
-        android:layout_below="@+id/textView3"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_alignRight="@+id/backTo1Button"
-        android:layout_alignEnd="@+id/backTo1Button" />
-
-    <EditText
-        android:layout_width="wrap_content"
+        android:layout_width="354dp"
         android:layout_height="wrap_content"
-        android:id="@+id/passInput"
-        android:layout_below="@+id/textView4"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
+        android:layout_below="@+id/textView3"
+        android:layout_alignEnd="@+id/backTo1Button"
         android:layout_alignRight="@+id/backTo1Button"
-        android:layout_alignEnd="@+id/backTo1Button" />
+        android:layout_alignParentStart="true"
+        android:layout_alignParentLeft="true"
+        android:layout_marginStart="13dp"
+        android:layout_marginLeft="13dp"
+        android:layout_marginTop="0dp"
+        android:layout_marginEnd="-15dp"
+        android:layout_marginRight="-15dp"
+        android:hint="Enter Username" />
 
     <TextView
+        android:id="@+id/textView3"
+        android:layout_width="89dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginStart="12dp"
+        android:layout_marginLeft="12dp"
+        android:layout_marginTop="362dp"
+        android:layout_marginEnd="294dp"
+        android:layout_marginRight="294dp"
+        android:text="Username" />
+
+    <TextView
+        android:id="@+id/textView4"
+        android:layout_width="120dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/textView3"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentLeft="true"
+        android:layout_marginStart="16dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="85dp"
+        android:text="Password" />
+
+    <TextView
+        android:id="@+id/retrPassword"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/textView4"
+        android:layout_marginTop="0dp" />
+
+    <EditText
+        android:id="@+id/passInput"
+        android:layout_width="356dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/textView4"
+        android:layout_alignEnd="@+id/backTo1Button"
+        android:layout_alignRight="@+id/backTo1Button"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentLeft="true"
+        android:layout_marginStart="14dp"
+        android:layout_marginLeft="14dp"
+        android:layout_marginTop="0dp"
+        android:layout_marginEnd="-18dp"
+        android:layout_marginRight="-18dp"
+        android:hint="Enter Password" />
+
+    <TextView
+        android:id="@+id/retrUsername"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/textView3"
+        android:layout_marginBottom="0dp" />
+
+    <Button
+        android:id="@+id/backTo1Button"
+        android:layout_width="113dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginEnd="27dp"
+        android:layout_marginRight="27dp"
+        android:layout_marginBottom="108dp"
+        android:onClick="toSettings"
+        android:text="Login" />
+
+    <TextView
         android:id="@+id/EditContent"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_above="@+id/backTo1Button"
-        android:layout_centerHorizontal="true" />
+        android:layout_marginBottom="0dp" />
+
+    <TextView
+        android:id="@+id/login_message"
+        android:layout_width="wrap_content"
+        android:layout_height="75dp"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginTop="219dp"
+        android:layout_marginBottom="421dp"
+        android:text="Looks like you already have a Stride account. To continue, please enter your username and password below." />
 
 </RelativeLayout>

@@ -8,6 +8,23 @@
     android:paddingBottom="16dp"
     tools:context=".LoginActivity">
 
+    <EditText
+        android:id="@+id/editTextPassword"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/textView2"
+        android:layout_alignEnd="@+id/editTextUsername"
+        android:layout_alignRight="@+id/editTextUsername"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentLeft="true"
+        android:layout_marginStart="14dp"
+        android:layout_marginLeft="14dp"
+        android:layout_marginTop="0dp"
+        android:layout_marginEnd="0dp"
+        android:layout_marginRight="0dp"
+        android:hint="Enter Password"
+        android:inputType="textPassword" />
+
     <TextView
         android:id="@+id/textView"
         android:layout_width="wrap_content"
@@ -15,6 +32,9 @@
         android:layout_alignParentStart="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
+        android:layout_marginStart="14dp"
+        android:layout_marginLeft="14dp"
+        android:layout_marginTop="327dp"
         android:text="Username" />
 
     <EditText
@@ -26,7 +46,12 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentEnd="true"
         android:layout_alignParentRight="true"
-        android:hint="Enter username" />
+        android:layout_marginStart="14dp"
+        android:layout_marginLeft="14dp"
+        android:layout_marginTop="0dp"
+        android:layout_marginEnd="18dp"
+        android:layout_marginRight="18dp"
+        android:hint="Enter Username" />
 
     <TextView
         android:id="@+id/textView2"
@@ -36,19 +61,9 @@
         android:layout_alignEnd="@+id/textView"
         android:layout_alignRight="@+id/textView"
         android:layout_marginTop="32dp"
+        android:layout_marginEnd="0dp"
+        android:layout_marginRight="0dp"
         android:text="Password" />
-
-    <EditText
-        android:id="@+id/editTextPassword"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/textView2"
-        android:layout_alignEnd="@+id/editTextUsername"
-        android:layout_alignRight="@+id/editTextUsername"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentLeft="true"
-        android:hint="Enter password"
-        android:inputType="textPassword" />
 
     <Button
         android:id="@+id/submitButton"
@@ -58,6 +73,34 @@
         android:layout_alignEnd="@+id/editTextPassword"
         android:layout_alignRight="@+id/editTextPassword"
         android:layout_marginTop="37dp"
+        android:layout_marginEnd="0dp"
+        android:layout_marginRight="0dp"
         android:onClick="gotoActivity2"
         android:text="Register" />
+
+    <TextView
+        android:id="@+id/login_message"
+        android:layout_width="wrap_content"
+        android:layout_height="92dp"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginTop="201dp"
+        android:layout_marginBottom="422dp"
+        android:text="In order to proceed, please make a Stride account by entering a username and password and clicking register." />
+
+    <TextView
+        android:id="@+id/name"
+        android:layout_width="110dp"
+        android:layout_height="34dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginStart="142dp"
+        android:layout_marginLeft="142dp"
+        android:layout_marginEnd="144dp"
+        android:layout_marginRight="144dp"
+        android:text="Stride."
+        android:textSize="30dp"
+        android:textStyle="bold" />
 </RelativeLayout>
