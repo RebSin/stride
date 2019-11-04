@@ -28,9 +28,9 @@ public class RegisterActivity extends Activity {
         String username = sharedPreferences.getString("username", DEFAULT);
         String password = sharedPreferences.getString("password", DEFAULT);
 
-        //if exists go to the main activity (currently the maps activity)
+        //if exists go to the main activity (currently the maps activity)--temporarily going to the login activity
         if (!username.equals(DEFAULT) && !password.equals(DEFAULT)) {
-            Intent intent = new Intent(this, MapsActivity.class);
+            Intent intent = new Intent(this, LoginActivity.class);
             startActivity(intent);
         }
     }
@@ -44,7 +44,7 @@ public class RegisterActivity extends Activity {
         editor.commit();
 
         Toast.makeText(this, "Account Made", Toast.LENGTH_LONG).show();
-        Intent intent= new Intent(this, MapsActivity.class);
+        Intent intent= new Intent(this, LoginActivity.class);
         startActivity(intent);
     }
 
