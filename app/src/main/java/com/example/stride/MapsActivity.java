@@ -1,11 +1,17 @@
 package com.example.stride;
 
+import androidx.annotation.RequiresApi;
 import androidx.fragment.app.FragmentActivity;
 
+import android.Manifest;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.Toast;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -15,6 +21,7 @@ import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
+
 //this displays our main homepage with the map
 public class MapsActivity extends FragmentActivity implements GoogleMap.OnMarkerClickListener, View.OnClickListener,
         OnMapReadyCallback {
@@ -23,6 +30,7 @@ public class MapsActivity extends FragmentActivity implements GoogleMap.OnMarker
     private GoogleMap mMap;
     public Button searchButton;
     public Button diaryButton;
+    public EditText searchMe;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,6 +38,7 @@ public class MapsActivity extends FragmentActivity implements GoogleMap.OnMarker
         setContentView(R.layout.activity_maps);
         searchButton = (Button) findViewById(R.id.search_button);
         diaryButton = (Button) findViewById(R.id.diary_button);
+        searchMe = (EditText) findViewById(R.id.searchEditText);
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
@@ -37,7 +46,6 @@ public class MapsActivity extends FragmentActivity implements GoogleMap.OnMarker
         diaryButton.setOnClickListener(this);
         mapFragment.getMapAsync(this);
     }
-
 
     /**
      * Manipulates the map once available.
@@ -48,9 +56,21 @@ public class MapsActivity extends FragmentActivity implements GoogleMap.OnMarker
      * it inside the SupportMapFragment. This method will only be triggered once the user has
      * installed Google Play services and returned to the app.
      */
+    @RequiresApi(api = Build.VERSION_CODES.M)
     @Override
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
+        if (checkSelfPermission(Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && checkSelfPermission(Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            // TODO: Consider calling
+            //    Activity#requestPermissions
+            // here to request the missing permissions, and then overriding
+            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
+            //                                          int[] grantResults)
+            // to handle the case where the user grants the permission. See the documentation
+            // for Activity#requestPermissions for more details.
+            return;
+        }
+        mMap.setMyLocationEnabled(true);
         // Add a marker in Sydney and move the camera
         mBrisbane = mMap.addMarker(new MarkerOptions()
                 .position(BRISBANE)
@@ -85,16 +105,21 @@ public class MapsActivity extends FragmentActivity implements GoogleMap.OnMarker
         // marker is centered and for the marker's info window to open, if it has one).
         return false;
     }
-
     @Override
     public void onClick(View view) {
-        if(view.getId() == R.id.search_button){
-            Intent intent = new Intent(view.getContext(), SearchActivity.class);
-            startActivity(intent);
+        if(view.getId() == R.id.search_button) { //this checks if search button pressed
+            if (searchMe.getText().toString().length() > 0){ //this checks if there was something typed
+                String word_entered = searchMe.getText().toString(); //this gets what was typed
+                Uri webpage = Uri.parse("https://en.wikipedia.org/wiki/" + word_entered);
+                Intent webIntent = new Intent(Intent.ACTION_VIEW, webpage);
+                startActivity(webIntent); //this starts the intent
+            }
+
         }
         if(view.getId() == R.id.diary_button){
             Intent intent = new Intent(view.getContext(), DiaryActivity.class);
             startActivity(intent);
         }
     }
+
 }

@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.util.Log;
 
 //this displays a page with all the details and saved image
+//after the user clicks on a marker in MapsActivity
 public class MarkerClickDetailResults extends AppCompatActivity {
 
     @Override
