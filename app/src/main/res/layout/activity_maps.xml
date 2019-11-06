@@ -4,6 +4,20 @@
     android:orientation="vertical"
     xmlns:android="http://schemas.android.com/apk/res/android">
 
+    <EditText
+        android:id="@+id/searchEditText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:text="Name" />
+
+    <Button
+        android:id="@+id/search_button"
+        android:layout_width="118dp"
+        android:layout_height="wrap_content"
+        android:text="Search" />
+
     <TextView
         android:id="@+id/textView"
         android:layout_width="wrap_content"
@@ -26,8 +40,14 @@
         android:layout_weight="1"
         android:text="TextView" />
 
+    <Button
+        android:id="@+id/diary_button"
+        android:layout_width="124dp"
+        android:layout_height="wrap_content"
+        android:text="Go to Diary" />
 
-<!--<fragment xmlns:android="http://schemas.android.com/apk/res/android"-->
+
+    <!--<fragment xmlns:android="http://schemas.android.com/apk/res/android"-->
     <!--xmlns:map="http://schemas.android.com/apk/res-auto"-->
     <!--xmlns:tools="http://schemas.android.com/tools"-->
     <!--android:id="@+id/map"-->

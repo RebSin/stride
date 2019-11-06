@@ -4,6 +4,8 @@ import androidx.fragment.app.FragmentActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
 import android.widget.Toast;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -14,19 +16,25 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 //this displays our main homepage with the map
-public class MapsActivity extends FragmentActivity implements GoogleMap.OnMarkerClickListener,
+public class MapsActivity extends FragmentActivity implements GoogleMap.OnMarkerClickListener, View.OnClickListener,
         OnMapReadyCallback {
     private static final LatLng BRISBANE = new LatLng(-27.47093, 153.0235);
     private Marker mBrisbane;
     private GoogleMap mMap;
+    public Button searchButton;
+    public Button diaryButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_maps);
+        searchButton = (Button) findViewById(R.id.search_button);
+        diaryButton = (Button) findViewById(R.id.diary_button);
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
+        searchButton.setOnClickListener(this);
+        diaryButton.setOnClickListener(this);
         mapFragment.getMapAsync(this);
     }
 
@@ -76,5 +84,17 @@ public class MapsActivity extends FragmentActivity implements GoogleMap.OnMarker
         // for the default behavior to occur (which is for the camera to move such that the
         // marker is centered and for the marker's info window to open, if it has one).
         return false;
+    }
+
+    @Override
+    public void onClick(View view) {
+        if(view.getId() == R.id.search_button){
+            Intent intent = new Intent(view.getContext(), SearchActivity.class);
+            startActivity(intent);
+        }
+        if(view.getId() == R.id.diary_button){
+            Intent intent = new Intent(view.getContext(), DiaryActivity.class);
+            startActivity(intent);
+        }
     }
 }
