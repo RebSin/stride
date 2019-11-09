@@ -124,7 +124,7 @@ public class MapsActivity extends FragmentActivity implements GoogleMap.OnMarker
         /*
          * Get the location of the device if permission has been granted.
          */
-        try {
+    /*    try {
             if (mLocationPermissionGranted) {
                 Task<Location> locationResult = mFusedLocationProviderClient.getLastLocation();
                 locationResult.addOnCompleteListener(this, new OnCompleteListener<Location>() {
@@ -150,7 +150,7 @@ public class MapsActivity extends FragmentActivity implements GoogleMap.OnMarker
             }
         } catch(SecurityException e)  {
             Log.e("Exception: %s", e.getMessage());
-        }
+        }*/
     }
 
 

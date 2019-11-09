@@ -5,14 +5,26 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
+import android.database.Cursor;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.Button;
+import android.widget.LinearLayout;
+import android.widget.TextView;
+import android.widget.Toast;
 
-public class DiaryActivity extends AppCompatActivity implements View.OnClickListener {
+import org.w3c.dom.Text;
+
+import java.lang.reflect.Array;
+import java.util.ArrayList;
+
+public class DiaryActivity extends AppCompatActivity implements View.OnClickListener, AdapterView.OnItemClickListener {
     //declare variables to use for the recycler view
     RecyclerView myRecycler;
-    RecyclerView.Adapter adapter;
+    MyDatabase db;
+    MyHelper helper;
+    MyAdapter myAdapter;
     private RecyclerView.LayoutManager mLayoutManager;
     Button addEntryButton;
 
@@ -26,6 +38,34 @@ public class DiaryActivity extends AppCompatActivity implements View.OnClickList
         mLayoutManager = new LinearLayoutManager(this);
         myRecycler.setLayoutManager(mLayoutManager);
         addEntryButton.setOnClickListener(this);
+
+        db = new MyDatabase(this);
+        helper = new MyHelper(this);
+
+        Cursor cursor = db.getData();
+
+        int index1 = cursor.getColumnIndex(Constants.NAME);
+        int index2 = cursor.getColumnIndex(Constants.TYPE);
+
+        ArrayList<String> mArrayList = new ArrayList<String>();
+        cursor.moveToFirst();
+        while(!cursor.isAfterLast()){
+            String title = cursor.getString(index1);
+            String description = cursor.getString(index2);
+            String s = title + "," + description;
+            mArrayList.add(s);
+            cursor.moveToNext();
+        }
+        myAdapter = new MyAdapter(mArrayList);
+        myRecycler.setAdapter(myAdapter);
+    }
+
+    @Override
+    public void onItemClick(AdapterView<?> parent, View view, int position, long id){
+        //LinearLayout clickedRow = (LinearLayout) view;
+        TextView titleTextView = (TextView) view.findViewById(R.id.titleEntry);
+        TextView descriptionTextView = (TextView) view.findViewById(R.id.descriptionEntry);
+        Toast.makeText(this, "row " + (1+position) + ": " + titleTextView.getText() + " " + descriptionTextView.getText(), Toast.LENGTH_LONG).show();
     }
 
     @Override
