@@ -64,9 +64,6 @@ public class LoginActivity extends Activity {
             SharedPreferences preferences = getSharedPreferences("MyData", 0);
             preferences.edit().remove("username").commit();
             preferences.edit().remove("password").commit();
-            preferences.edit().remove("bg").commit();
-            preferences.edit().remove("size").commit();
-            preferences.edit().remove("color").commit();
 
             Intent intent = new Intent(this, RegisterActivity.class);
             startActivity(intent);
