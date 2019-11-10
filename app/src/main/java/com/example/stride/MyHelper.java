@@ -16,7 +16,8 @@ public class MyHelper extends SQLiteOpenHelper {
                     Constants.UID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
                     Constants.NAME + " TEXT, " +
                     Constants.TYPE + " TEXT, " +
-                    Constants.THE_STATUS + " TEXT);" ;
+                    Constants.THE_STATUS + " TEXT, " +
+                    Constants.IMAGE + " BLOB);" ; //use blob to store image in database
 
     private static final String DROP_TABLE = "DROP TABLE IF EXISTS " + Constants.TABLE_NAME;
 

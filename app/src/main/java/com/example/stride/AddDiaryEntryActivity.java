@@ -32,6 +32,7 @@ public class AddDiaryEntryActivity extends AppCompatActivity implements View.OnC
     RadioButton unsure;
     Button take_photo_button;
     ImageView image;
+    Bitmap temp;
     static final int Image_Capture_Code = 1;
 
     MyDatabase db;
@@ -70,6 +71,7 @@ public class AddDiaryEntryActivity extends AppCompatActivity implements View.OnC
         if(requestCode == Image_Capture_Code){
             Bitmap bp = (Bitmap) data.getExtras().get("data");
             image.setImageBitmap(bp);
+            temp = bp;
         } else if(resultCode == RESULT_CANCELED){
             Toast.makeText(this, "Cancelled", Toast.LENGTH_LONG).show();
         }
@@ -79,7 +81,7 @@ public class AddDiaryEntryActivity extends AppCompatActivity implements View.OnC
         String name = title.getText().toString();
         String type = description.getText().toString();
         Toast.makeText(this, name + type, Toast.LENGTH_SHORT).show();
-        long id = db.insertData(name, type, status);
+        long id = db.insertData(name, type, status, temp);
         if(id < 0){
             Toast.makeText(this, "fail", Toast.LENGTH_SHORT).show();
         } else{
