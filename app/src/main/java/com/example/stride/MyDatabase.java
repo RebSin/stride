@@ -17,11 +17,12 @@ public class MyDatabase {
         helper = new MyHelper(context);
     }
 
-    public long insertData(String name, String type){
+    public long insertData(String name, String type, String the_status){
         db = helper.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
         contentValues.put(Constants.NAME, name);
         contentValues.put(Constants.TYPE, type);
+        contentValues.put(Constants.THE_STATUS, the_status);
         long id = db.insert(Constants.TABLE_NAME, null, contentValues);
         return id;
     }
@@ -29,7 +30,7 @@ public class MyDatabase {
     public Cursor getData(){
         SQLiteDatabase db = helper.getWritableDatabase();
 
-        String[] columns = {Constants.UID, Constants.NAME, Constants.TYPE};
+        String[] columns = {Constants.UID, Constants.NAME, Constants.TYPE, Constants.THE_STATUS};
         Cursor cursor = db.query(Constants.TABLE_NAME, columns, null, null, null, null, null);
         return cursor;
     }

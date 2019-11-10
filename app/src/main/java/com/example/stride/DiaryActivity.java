@@ -46,13 +46,15 @@ public class DiaryActivity extends AppCompatActivity implements View.OnClickList
 
         int index1 = cursor.getColumnIndex(Constants.NAME);
         int index2 = cursor.getColumnIndex(Constants.TYPE);
+        int index3 = cursor.getColumnIndex(Constants.THE_STATUS);
 
         ArrayList<String> mArrayList = new ArrayList<String>();
         cursor.moveToFirst();
         while(!cursor.isAfterLast()){
             String title = cursor.getString(index1);
             String description = cursor.getString(index2);
-            String s = title + "," + description;
+            String status = cursor.getString(index3);
+            String s = title + "," + description + "," + status;
             mArrayList.add(s);
             cursor.moveToNext();
         }
@@ -65,7 +67,8 @@ public class DiaryActivity extends AppCompatActivity implements View.OnClickList
         //LinearLayout clickedRow = (LinearLayout) view;
         TextView titleTextView = (TextView) view.findViewById(R.id.titleEntry);
         TextView descriptionTextView = (TextView) view.findViewById(R.id.descriptionEntry);
-        Toast.makeText(this, "row " + (1+position) + ": " + titleTextView.getText() + " " + descriptionTextView.getText(), Toast.LENGTH_LONG).show();
+        TextView statusTextView = (TextView) view.findViewById(R.id.statusEntry);
+        Toast.makeText(this, "row " + (1+position) + ": " + titleTextView.getText() + " " + descriptionTextView.getText() + " " + statusTextView.getText(), Toast.LENGTH_LONG).show();
     }
 
     @Override

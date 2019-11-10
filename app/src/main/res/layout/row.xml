@@ -14,11 +14,18 @@
         android:textSize="24sp" />
 
     <TextView
+        android:id="@+id/descriptionEntry"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="New Text"
-        android:id="@+id/descriptionEntry"
-        android:layout_weight="1
-        "
-        android:gravity="right" />
+        android:layout_weight="1"
+        android:gravity="right"
+        android:text="New Text" />
+
+    <TextView
+        android:id="@+id/statusEntry"
+        android:layout_width="1dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:gravity="right"
+        android:text="TextView" />
 </LinearLayout>

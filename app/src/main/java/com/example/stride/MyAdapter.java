@@ -39,6 +39,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
         String[] results = (list.get(position).toString()).split(",");
         holder.titleTextView.setText(results[0]);
         holder.descriptionTextView.setText(results[1]);
+        holder.statusTextView.setText(results[2]);
     }
 
     @Override
@@ -50,6 +51,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
     public static class MyViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
         public TextView titleTextView;
         public TextView descriptionTextView;
+        public TextView statusTextView;
         public LinearLayout myLayout;
 
         Context context;
@@ -60,6 +62,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
 
             titleTextView = (TextView) itemView.findViewById(R.id.titleEntry);
             descriptionTextView = (TextView) itemView.findViewById(R.id.descriptionEntry);
+            statusTextView = (TextView) itemView.findViewById(R.id.statusEntry);
 
             itemView.setOnClickListener(this);
             context = itemView.getContext();
