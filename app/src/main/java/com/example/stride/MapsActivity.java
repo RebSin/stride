@@ -44,8 +44,10 @@ public class MapsActivity extends FragmentActivity implements GoogleMap.OnMarker
     private GoogleMap mMap;
     public Button searchButton;
     public Button diaryButton;
+    public Button graphButton;
     public EditText searchMe;
     private SensorManager sensorManager;
+    public int healthyCount = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,13 +56,16 @@ public class MapsActivity extends FragmentActivity implements GoogleMap.OnMarker
         context = this;
         searchButton = (Button) findViewById(R.id.search_button);
         diaryButton = (Button) findViewById(R.id.diary_button);
+        graphButton = (Button) findViewById(R.id.graph_button);
         searchMe = (EditText) findViewById(R.id.searchEditText);
+
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
         mFusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this);
         searchButton.setOnClickListener(this); //setting onclick listeners
         diaryButton.setOnClickListener(this);
+        graphButton.setOnClickListener(this);
         mapFragment.getMapAsync(this);
         sensorManager = (SensorManager) getSystemService(SENSOR_SERVICE); //accessing sensors for accelerometer
         sensorManager.registerListener(this, sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER), SensorManager.SENSOR_DELAY_NORMAL);
@@ -248,6 +253,10 @@ public class MapsActivity extends FragmentActivity implements GoogleMap.OnMarker
         }
         if(view.getId() == R.id.diary_button){
             Intent intent = new Intent(view.getContext(), DiaryActivity.class);
+            startActivity(intent);
+        }
+        if(view.getId() == R.id.graph_button){
+            Intent intent = new Intent(view.getContext(), GraphActivity.class);
             startActivity(intent);
         }
     }

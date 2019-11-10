@@ -11,13 +11,9 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import org.w3c.dom.Text;
-
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 public class DiaryActivity extends AppCompatActivity implements View.OnClickListener, AdapterView.OnItemClickListener {
@@ -34,7 +30,7 @@ public class DiaryActivity extends AppCompatActivity implements View.OnClickList
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_diary);
         addEntryButton = (Button) findViewById(R.id.add_entry_button);
-        myRecycler = (RecyclerView) findViewById(R.id.my_recycler_view);
+        myRecycler = (RecyclerView) findViewById(R.id.graph_button);
         // use a linear layout manager
         mLayoutManager = new LinearLayoutManager(this);
         myRecycler.setLayoutManager(mLayoutManager);

@@ -7,7 +7,9 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
 import android.Manifest;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.os.Environment;
@@ -18,6 +20,7 @@ import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.RadioButton;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.io.File;
@@ -37,6 +40,9 @@ public class AddDiaryEntryActivity extends AppCompatActivity implements View.OnC
 
     MyDatabase db;
     public String status;
+    public int numHealthy = 0;
+    public int numUnsure = 0;
+    public int numUnhealthy = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -101,12 +107,25 @@ public class AddDiaryEntryActivity extends AppCompatActivity implements View.OnC
 
     @Override
     public void onClick(View view) {
+        SharedPreferences sharedPreferences = getSharedPreferences("MyData", Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        //convert it into string base64 to share it in shared preferences
+        editor.commit();
         if(view.getId() == R.id.healthy_button){
             status = "Healthy";
+            numHealthy = numHealthy + 1;
+            editor.putInt("healthy", numHealthy);
+            editor.commit();
         } else if(view.getId() == R.id.unhealthy_button){
             status = "Unhealthy";
+            numUnhealthy += 1;
+            editor.putInt("unhealthy", numHealthy);
+            editor.commit();
         } else if(view.getId() == R.id.unsure_button){
             status = "Unsure";
+            numUnsure += 1;
+            editor.putInt("unsure", numHealthy);
+            editor.commit();
         }
     }
 }

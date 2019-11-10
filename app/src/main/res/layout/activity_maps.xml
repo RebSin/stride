@@ -45,7 +45,14 @@
         android:layout_width="124dp"
         android:layout_height="wrap_content"
         android:text="Go to Diary" />
-<!--<menu xmlns:android= "http://schemas.android.com/apk/res/android"-->
+
+    <Button
+        android:id="@+id/graph_button"
+        android:layout_width="135dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="right"
+        android:text="View Graph" />
+    <!--<menu xmlns:android= "http://schemas.android.com/apk/res/android"-->
     <!--xmlns:app="http://schemas.android.com/apk/res-auto">-->
 <!--<item android:id="@+id/currentLocation"-->
     <!--android:title="Current Location"-->
