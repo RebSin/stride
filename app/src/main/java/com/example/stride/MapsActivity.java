@@ -78,7 +78,6 @@ public class MapsActivity extends FragmentActivity implements GoogleMap.OnMarker
     @Override
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
-
         // Add a marker in Sydney and move the camera
         mBrisbane = mMap.addMarker(new MarkerOptions()
                 .position(BRISBANE)
@@ -133,12 +132,18 @@ public class MapsActivity extends FragmentActivity implements GoogleMap.OnMarker
                         if (task.isSuccessful()) {
                             // Set the map's camera position to the current location of the device.
                             mLastKnownLocation = task.getResult();
-                            mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(
-                                    new LatLng(mLastKnownLocation.getLatitude(),
-                                            mLastKnownLocation.getLongitude()), DEFAULT_ZOOM));
-                            lastLatitude = mLastKnownLocation.getLatitude();
-                            lastLongitude = mLastKnownLocation.getLongitude();
-
+                            if (mLastKnownLocation != null) {
+                                mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(
+                                        new LatLng(mLastKnownLocation.getLatitude(),
+                                                mLastKnownLocation.getLongitude()), DEFAULT_ZOOM));
+                                lastLatitude = mLastKnownLocation.getLatitude();
+                                lastLongitude = mLastKnownLocation.getLongitude();
+                            } else {
+                                Log.d("MapsActivity", "Current location is null.");
+                                mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(mDefaultLocation, DEFAULT_ZOOM));
+                                mMap.getUiSettings().setMyLocationButtonEnabled(false);
+                            }
+//                            cameraActivatedSaveMarker(true, "IM TESTING IT");
                         } else {
                             Log.d("MapsActivity", "Current location is null. Using defaults.");
                             Log.e("MapsActivity", "Exception: %s", task.getException());
