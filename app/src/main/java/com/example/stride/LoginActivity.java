@@ -59,7 +59,7 @@ public class LoginActivity extends Activity {
             startActivity(intent);
 
         } else {
-            //if they put in the wrong username and password, make then sign up again
+            //if they put in the wrong username and password, make them sign up again
             Toast.makeText(this, "Wrong Username or Password", Toast.LENGTH_LONG).show();
             SharedPreferences preferences = getSharedPreferences("MyData", 0);
             preferences.edit().remove("username").commit();
