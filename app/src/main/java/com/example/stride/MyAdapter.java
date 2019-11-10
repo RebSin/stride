@@ -1,9 +1,14 @@
 package com.example.stride;
 
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.net.Uri;
+import android.util.Base64;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -40,18 +45,25 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
         holder.titleTextView.setText(results[0]);
         holder.descriptionTextView.setText(results[1]);
         holder.statusTextView.setText(results[2]);
+        holder.imageView.setImageBitmap(getBitmapFromEncodedString(results[3]));
+    }
+
+    public Bitmap getBitmapFromEncodedString(String encodedString){
+        byte[] arr = Base64.decode(encodedString, Base64.URL_SAFE);
+        Bitmap img = BitmapFactory.decodeByteArray(arr, 0, arr.length);
+        return img;
     }
 
     @Override
     public int getItemCount() {
         return list.size();
     }
-
-
+    
     public static class MyViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
         public TextView titleTextView;
         public TextView descriptionTextView;
         public TextView statusTextView;
+        public ImageView imageView;
         public LinearLayout myLayout;
 
         Context context;
@@ -63,6 +75,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
             titleTextView = (TextView) itemView.findViewById(R.id.titleEntry);
             descriptionTextView = (TextView) itemView.findViewById(R.id.descriptionEntry);
             statusTextView = (TextView) itemView.findViewById(R.id.statusEntry);
+            imageView = (ImageView) itemView.findViewById(R.id.imageEntry);
 
             itemView.setOnClickListener(this);
             context = itemView.getContext();
