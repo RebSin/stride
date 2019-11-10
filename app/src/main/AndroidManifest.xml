@@ -11,6 +11,9 @@
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_BACKGROUND_LOCATION" />
 
+    <uses-permission-sdk-23 android:name="android.permission.CAMERA" />
+    <uses-permission-sdk-23 android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -18,9 +21,10 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".AddDiaryEntryActivity"></activity>
+        <activity android:name=".GraphActivity"></activity>
+        <activity android:name=".DetailedViewActivity" />
+        <activity android:name=".AddDiaryEntryActivity" />
         <activity android:name=".DiaryActivity" />
-        <activity android:name=".SearchActivity" />
         <activity android:name=".LoginActivity" />
         <activity android:name=".RegisterActivity">
             <intent-filter>
