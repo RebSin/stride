@@ -11,6 +11,9 @@ import java.io.ByteArrayOutputStream;
 import java.sql.Blob;
 import java.util.concurrent.CopyOnWriteArrayList;
 
+import static com.example.stride.Constants.NAME;
+import static com.example.stride.Constants.TABLE_NAME;
+
 public class MyDatabase {
     private SQLiteDatabase db;
     private Context context;
@@ -24,7 +27,7 @@ public class MyDatabase {
     public long insertData(String name, String type, String the_status, Bitmap image){
         db = helper.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
-        contentValues.put(Constants.NAME, name);
+        contentValues.put(NAME, name);
         contentValues.put(Constants.TYPE, type);
         contentValues.put(Constants.THE_STATUS, the_status);
 
@@ -32,8 +35,26 @@ public class MyDatabase {
 
         contentValues.put(Constants.IMAGE, photo);
 
-        long id = db.insert(Constants.TABLE_NAME, null, contentValues);
+        long id = db.insert(TABLE_NAME, null, contentValues);
         return id;
+    }
+
+//    public boolean deleteTitle(String name)
+//    {
+//        db = helper.getWritableDatabase();
+//        return db.delete(TABLE_NAME, NAME + " = " + name, null) > 0;
+//    }
+
+    public void removeSingleContact(String title) {
+        //Open the database
+        db = helper.getWritableDatabase();
+
+        //Execute sql query to remove from database
+        //NOTE: When removing by String in SQL, value must be enclosed with ''
+        db.execSQL("DELETE FROM " + TABLE_NAME + " WHERE " + NAME + "= '" + title + "'");
+
+        //Close the database
+        db.close();
     }
 
     private String getEncodedString(Bitmap bitmap){
@@ -52,8 +73,8 @@ public class MyDatabase {
     public Cursor getData(){
         SQLiteDatabase db = helper.getWritableDatabase();
 
-        String[] columns = {Constants.UID, Constants.NAME, Constants.TYPE, Constants.THE_STATUS, Constants.IMAGE};
-        Cursor cursor = db.query(Constants.TABLE_NAME, columns, null, null, null, null, null);
+        String[] columns = {Constants.UID, NAME, Constants.TYPE, Constants.THE_STATUS, Constants.IMAGE};
+        Cursor cursor = db.query(TABLE_NAME, columns, null, null, null, null, null);
         return cursor;
     }
 }

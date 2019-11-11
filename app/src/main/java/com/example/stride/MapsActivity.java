@@ -41,7 +41,7 @@ public class MapsActivity extends FragmentActivity implements GoogleMap.OnMarker
         OnMapReadyCallback, SensorEventListener {
     private static final LatLng BRISBANE = new LatLng(-27.47093, 153.0235);
     private Marker mBrisbane;
-    private GoogleMap mMap;
+    private static GoogleMap mMap;
     public Button searchButton;
     public Button diaryButton;
     public Button graphButton;
@@ -83,35 +83,32 @@ public class MapsActivity extends FragmentActivity implements GoogleMap.OnMarker
     @Override
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
-        // Add a marker in Sydney and move the camera
-        mBrisbane = mMap.addMarker(new MarkerOptions()
-                .position(BRISBANE)
-                .title("Brisbane"));
-        mBrisbane.setTag(0);
         // Turn on the My Location layer and the related control on the map.
         updateLocationUI();
-
         // Get the current location of the device and set the position of the map.
         getDeviceLocation();
+      //  cameraActivatedSaveMarker(true, "testing", lastLatitude, lastLongitude);
         // Set a listener for marker click.
         mMap.setOnMarkerClickListener(this);
     }
 
 ///////////////////////////////////////////////////////
 
-    public double lastLatitude;
-    public double lastLongitude;
-    public LatLng thisLocHere;
-    public int tagNumber;
+    public static double lastLatitude;
+    public static double lastLongitude;
+    public static LatLng thisLocHere;
+    public static int tagNumber;
 
-    public void cameraActivatedSaveMarker(boolean photoTaken, String title) { //this is called
+    public static void cameraActivatedSaveMarker(boolean photoTaken, String title, double lastLat, double lastLong) { //this is called
         //if the camera has taken a photo and it takes the photo title
         //it then reads the location of the device, which should be where the photo was taken
         //then it sets a new marker to the map
-        if (photoTaken) {
-            thisLocHere = new LatLng(lastLatitude, lastLongitude);
-            Marker thisMarkerHere;
+     Log.d("iRanCheck", "CAMERAACTIVATEDSAVEMARKERRAN");
 
+        if (photoTaken) {
+            thisLocHere = new LatLng(lastLat + tagNumber, lastLong + tagNumber);
+            Marker thisMarkerHere;
+            Log.d("iRanCheck", "latitude:" + lastLat + " long:" + lastLong +" tagnum:" +tagNumber);
             thisMarkerHere = mMap.addMarker(new MarkerOptions()
                     .position(thisLocHere)
                     .title(title));
@@ -128,8 +125,9 @@ public class MapsActivity extends FragmentActivity implements GoogleMap.OnMarker
         /*
          * Get the location of the device if permission has been granted.
          */
-    /*    try {
+        try {
             if (mLocationPermissionGranted) {
+                updateLocationUI();
                 Task<Location> locationResult = mFusedLocationProviderClient.getLastLocation();
                 locationResult.addOnCompleteListener(this, new OnCompleteListener<Location>() {
                     @Override
@@ -137,18 +135,14 @@ public class MapsActivity extends FragmentActivity implements GoogleMap.OnMarker
                         if (task.isSuccessful()) {
                             // Set the map's camera position to the current location of the device.
                             mLastKnownLocation = task.getResult();
-                            if (mLastKnownLocation != null) {
+                            Log.d("TASKRESULT", "" + task.getResult());
                                 mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(
                                         new LatLng(mLastKnownLocation.getLatitude(),
                                                 mLastKnownLocation.getLongitude()), DEFAULT_ZOOM));
+//                                Log.d("LastKnownLocation", "lat: " + mLastKnownLocation.getLatitude()
+//                                            +" long: " + mLastKnownLocation.getLongitude());
                                 lastLatitude = mLastKnownLocation.getLatitude();
                                 lastLongitude = mLastKnownLocation.getLongitude();
-                            } else {
-                                Log.d("MapsActivity", "Current location is null.");
-                                mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(mDefaultLocation, DEFAULT_ZOOM));
-                                mMap.getUiSettings().setMyLocationButtonEnabled(false);
-                            }
-//                            cameraActivatedSaveMarker(true, "IM TESTING IT");
                         } else {
                             Log.d("MapsActivity", "Current location is null. Using defaults.");
                             Log.e("MapsActivity", "Exception: %s", task.getException());
@@ -160,12 +154,12 @@ public class MapsActivity extends FragmentActivity implements GoogleMap.OnMarker
             }
         } catch(SecurityException e)  {
             Log.e("Exception: %s", e.getMessage());
-        }*/
+        }
     }
 
 
     private static final int PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION = 1;
-    private boolean mLocationPermissionGranted;
+    private boolean mLocationPermissionGranted = false;
 
     private void getLocationPermission() {
         /*
@@ -210,6 +204,7 @@ public class MapsActivity extends FragmentActivity implements GoogleMap.OnMarker
                 mMap.setMyLocationEnabled(true);
                 mMap.getUiSettings().setMyLocationButtonEnabled(true);
             } else {
+                Log.d("MapsActivity", "mylocation is NOT enabled");
                 mMap.setMyLocationEnabled(false);
                 mMap.getUiSettings().setMyLocationButtonEnabled(false);
                 mLastKnownLocation = null;
@@ -296,10 +291,10 @@ public class MapsActivity extends FragmentActivity implements GoogleMap.OnMarker
     Context context;
     public void oneHourCountdown() {
         long nowTime = System.currentTimeMillis();
-        if(nowTime >= (originalTime + 3600*1000) && !moving) { //multiply by one hour in seconds by 1000 to get milliseconds
+        if(nowTime >= (originalTime + 1800*1000) && !moving) { //multiply by one hour in seconds by 1000 to get milliseconds
             oneHourHasPassed = true;
             originalTime = System.currentTimeMillis(); //update originalTime to new time
-            Toast toast = Toast.makeText(context, "You haven't moved in one hour!", Toast.LENGTH_SHORT);
+            Toast toast = Toast.makeText(context, "You haven't moved in half an hour!", Toast.LENGTH_SHORT);
             toast.show(); //displays the toast
         } else {
             oneHourHasPassed = false;

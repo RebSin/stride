@@ -13,9 +13,10 @@ public class MarkerClickDetailResults extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_marker_click_detail_results);
+//        setContentView(R.layout.activity_marker_click_detail_results);
+        setContentView(R.layout.activity_detailed_view);
         Intent markerLoc = getIntent();
         String locName = markerLoc.getStringExtra("Loc_Name");
-        Log.d("MarkerClickDetailResul", locName);
+        Log.d("MarkerClickDetailResul", "name: " + locName);
     }
 }

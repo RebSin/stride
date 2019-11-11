@@ -10,10 +10,15 @@ import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
+import android.location.Location;
+import android.location.LocationListener;
+import android.location.LocationManager;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -27,7 +32,7 @@ import java.io.File;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-public class AddDiaryEntryActivity extends AppCompatActivity implements View.OnClickListener{
+public class AddDiaryEntryActivity extends AppCompatActivity implements View.OnClickListener, LocationListener {
     EditText title;
     EditText description;
     RadioButton healthy;
@@ -43,6 +48,9 @@ public class AddDiaryEntryActivity extends AppCompatActivity implements View.OnC
     public int numHealthy = 0;
     public int numUnsure = 0;
     public int numUnhealthy = 0;
+    protected LocationManager locationManager;
+    Location location;
+    double longitude, latitude;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,11 +65,17 @@ public class AddDiaryEntryActivity extends AppCompatActivity implements View.OnC
         take_photo_button = (Button) findViewById(R.id.picture_button);
         image = (ImageView) findViewById(R.id.imgCapture);
 
+        locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+        locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, this);
+
         take_photo_button.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v){
-                Intent cInt = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-                startActivityForResult(cInt, Image_Capture_Code);
+                getCameraPermission();
+                if (mCameraPermissionGranted) {
+                    Intent cInt = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+                    startActivityForResult(cInt, Image_Capture_Code);
+                }
             }
         });
 
@@ -71,6 +85,45 @@ public class AddDiaryEntryActivity extends AppCompatActivity implements View.OnC
 
         db = new MyDatabase(this);
     }
+
+
+    @Override
+    public void onLocationChanged(Location location) {
+//       longitude = location.getLongitude();
+//       latitude = location.getLatitude();
+//    Log.d("addnewdiaryentry", "long: " + longitude + " lat: " +latitude);
+    }
+
+    @Override
+    public void onProviderDisabled(String provider) {
+    }
+
+    @Override
+    public void onProviderEnabled(String provider) {
+    }
+
+    @Override
+    public void onStatusChanged(String provider, int status, Bundle extras) {
+    }
+
+
+    private static final int PERMISSIONS_REQUEST_CAMERA = 1;
+    private boolean mCameraPermissionGranted;
+    private void getCameraPermission() {
+        /*
+         * Requests camera permission
+         */
+        if (ContextCompat.checkSelfPermission(this.getApplicationContext(),
+                android.Manifest.permission.CAMERA)
+                == PackageManager.PERMISSION_GRANTED) {
+            mCameraPermissionGranted = true;
+        } else {
+            ActivityCompat.requestPermissions(this,
+                    new String[]{android.Manifest.permission.CAMERA},
+                    PERMISSIONS_REQUEST_CAMERA);
+        }
+    }
+
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data){
@@ -82,9 +135,11 @@ public class AddDiaryEntryActivity extends AppCompatActivity implements View.OnC
             Toast.makeText(this, "Cancelled", Toast.LENGTH_LONG).show();
         }
     }
-
+    String mapsTitle;
     public void addDiaryEntry(View view){
         String name = title.getText().toString();
+        mapsTitle = name;
+        MapsActivity.cameraActivatedSaveMarker(true, mapsTitle, longitude, latitude);
         String type = description.getText().toString();
         Toast.makeText(this, name + type, Toast.LENGTH_SHORT).show();
         long id = db.insertData(name, type, status, temp);
