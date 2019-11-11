@@ -8,6 +8,7 @@ import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
+import android.preference.PreferenceManager;
 import android.util.Base64;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -31,6 +32,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
 
     public ArrayList<String> list;
     Context context;
+    public int numHealthy = 0;
 
     public MyAdapter(ArrayList<String> list) {
         this.list = list;
@@ -52,6 +54,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
         holder.statusTextView.setText(results[2]);
         holder.imageView.setImageBitmap(getBitmapFromEncodedString(results[3]));
     }
+
 
     public Bitmap getBitmapFromEncodedString(String encodedString){
         byte[] arr = Base64.decode(encodedString, Base64.URL_SAFE);

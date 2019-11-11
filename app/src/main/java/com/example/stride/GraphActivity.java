@@ -24,12 +24,12 @@ public class GraphActivity extends AppCompatActivity {
     BarData barData;
     BarDataSet barDataSet;
     ArrayList barEntries;
-    MyDatabase db;
+
     public static final int DEFAULT = 0;
 
-    int numHealthy = 0;
-    int numUnhealthy = 0;
-    int numUnsure = 0;
+    int numHealthy;
+    int numUnhealthy;
+    int numUnsure;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,9 +38,9 @@ public class GraphActivity extends AppCompatActivity {
 
         SharedPreferences sharedPrefs = getSharedPreferences("MyData", Context.MODE_PRIVATE);
 
-        numHealthy = sharedPrefs.getInt("healthy", DEFAULT);
-        numUnhealthy = sharedPrefs.getInt("unhealthy", DEFAULT);
-        numHealthy = sharedPrefs.getInt("unsure", DEFAULT);
+        numHealthy = sharedPrefs.getInt("Healthy", DEFAULT);
+        numUnhealthy = sharedPrefs.getInt("Unhealthy", DEFAULT);
+        numUnsure = sharedPrefs.getInt("Unsure", DEFAULT);
 
         barChart = findViewById(R.id.BarChart);
         getEntries();

@@ -4,7 +4,9 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.view.View;
@@ -40,13 +42,20 @@ public class DiaryActivity extends AppCompatActivity implements View.OnClickList
         helper = new MyHelper(this);
 
         Cursor cursor = db.getData();
+        int numHealthy = 0;
+        int numUnhealthy = 0;
+        int numUnsure = 0;
 
         int index1 = cursor.getColumnIndex(Constants.NAME);
         int index2 = cursor.getColumnIndex(Constants.TYPE);
         int index3 = cursor.getColumnIndex(Constants.THE_STATUS);
         int index4 = cursor.getColumnIndex(Constants.IMAGE);
 
+        SharedPreferences sharedPreferences = getSharedPreferences("MyData", Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+
         ArrayList<String> mArrayList = new ArrayList<String>();
+        ArrayList<String> onlyStatus = new ArrayList<String>();
         cursor.moveToFirst();
         while(!cursor.isAfterLast()){
             String title = cursor.getString(index1);
@@ -54,9 +63,26 @@ public class DiaryActivity extends AppCompatActivity implements View.OnClickList
             String status = cursor.getString(index3);
             String image = cursor.getString(index4);
             String s = title + "," + description + "," + status + "," + image;
+            String temp = status.toString();
+            if(temp.equals("Healthy")) {
+                numHealthy = numHealthy + 1;
+                editor.putInt("Healthy", numHealthy);
+                editor.commit();
+            } else if(temp.equals("Unhealthy")){
+                numUnhealthy = numUnhealthy + 1;
+                editor.putInt("Unhealthy", numUnhealthy);
+                editor.commit();
+            } else if(temp.equals("Unsure")){
+                numUnsure = numUnsure + 1;
+                editor.putInt("Unsure", numUnsure);
+                editor.commit();
+            }
             mArrayList.add(s);
+            onlyStatus.add(image);
             cursor.moveToNext();
+
         }
+
         myAdapter = new MyAdapter(mArrayList);
         myRecycler.setAdapter(myAdapter);
     }
