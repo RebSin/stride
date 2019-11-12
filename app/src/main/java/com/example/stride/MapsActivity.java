@@ -348,4 +348,6 @@ https://stackoverflow.com/questions/32290045/error-invoke-virtual-method-double-
 https://developer.android.com/training/location/receive-location-updates
 https://stackoverflow.com/questions/31161944/how-to-delete-a-single-row-in-android-sqlite
 
+https://stackoverflow.com/questions/2115758/how-do-i-display-an-alert-dialog-on-android
+
 * */

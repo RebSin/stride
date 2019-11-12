@@ -1,8 +1,11 @@
 package com.example.stride;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Context;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Bitmap;
@@ -62,9 +65,25 @@ public class DetailedViewActivity extends AppCompatActivity {
         Bitmap temp = decodeBase64(theImage);
         image.setImageBitmap(temp);
         deleteEntry.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v)
-            {
-                db.removeSingleContact(theTitle);
+            public void onClick(final View v) {
+                new AlertDialog.Builder(v.getContext())
+                        .setTitle("Delete entry")
+                        .setMessage("Are you sure you want to delete this entry?")
+                        // Specifying a listener allows you to take an action before dismissing the dialog.
+                        // The dialog is automatically dismissed when a dialog button is clicked.
+                        .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int which) {
+                                // Continue with delete operation
+                                db.removeSingleContact(theTitle);
+                                Intent intent = new Intent(v.getContext(), DiaryActivity.class);
+                                startActivity(intent);
+                            }
+                        })
+                        // A null listener allows the button to dismiss the dialog and take no further action.
+                        .setNegativeButton(android.R.string.no, null)
+                        .setIcon(android.R.drawable.ic_dialog_alert)
+                        .show();
+                //db.removeSingleContact(theTitle);
             }
         });
         db = new MyDatabase(this);
