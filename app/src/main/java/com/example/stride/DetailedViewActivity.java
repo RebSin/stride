@@ -25,6 +25,8 @@ public class DetailedViewActivity extends AppCompatActivity {
     public static final String DEFAULT = "not available";
     MyDatabase db;
     Button deleteEntry;
+    TextView detailTime;
+    TextView detailLoc;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,8 +37,18 @@ public class DetailedViewActivity extends AppCompatActivity {
         status = (TextView) findViewById(R.id.detail_status);
         image = (ImageView) findViewById(R.id.detail_image);
         deleteEntry = (Button) findViewById(R.id.deleteentry);
+        detailTime = (TextView) findViewById(R.id.detail_timestamp);
+        detailLoc = (TextView) findViewById(R.id.detail_location);
+
+        Long systemTime = System.currentTimeMillis()/1000;
+        String timeInSeconds = systemTime.toString();
+        detailTime.setText(timeInSeconds + " seconds");
 
         SharedPreferences sharedPrefs = getSharedPreferences("MyData", Context.MODE_PRIVATE);
+        Float latitude = sharedPrefs.getFloat("latitude", (float) -33.8523341);
+        Float longitude = sharedPrefs.getFloat("longitude", (float) 151.2106085);
+
+        detailLoc.setText("Latitude: " + latitude + " Longitude: " + longitude);
 
         final String theTitle = sharedPrefs.getString("title", DEFAULT);
         String theDescription = sharedPrefs.getString("description", DEFAULT);

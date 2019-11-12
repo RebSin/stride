@@ -148,6 +148,10 @@ public class MapsActivity extends FragmentActivity implements GoogleMap.OnMarker
                                                 mLastKnownLocation.getLongitude()), DEFAULT_ZOOM));
 //                                Log.d("LastKnownLocation", "lat: " + mLastKnownLocation.getLatitude()
 //                                            +" long: " + mLastKnownLocation.getLongitude());
+                            SharedPreferences.Editor editor = getSharedPreferences("MyData", MODE_PRIVATE).edit();
+                            editor.putFloat("latitude", (float) mLastKnownLocation.getLatitude());
+                            editor.putFloat("longitude", (float) mLastKnownLocation.getLongitude());
+                            editor.apply();
                                 lastLatitude = mLastKnownLocation.getLatitude();
                                 lastLongitude = mLastKnownLocation.getLongitude();
                         } else {
