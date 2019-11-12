@@ -147,6 +147,10 @@ public class AddDiaryEntryActivity extends AppCompatActivity implements View.OnC
             Toast.makeText(this, "fail", Toast.LENGTH_SHORT).show();
         } else{
             Toast.makeText(this, "success" + " " + name + " " + type, Toast.LENGTH_SHORT).show();
+            healthy.setChecked(false);
+            unhealthy.setChecked(false);
+            unsure.setChecked(false);
+            image.setImageResource(android.R.color.transparent);
         }
         //clear the input boxes after the button is pressed
         title.setText("");

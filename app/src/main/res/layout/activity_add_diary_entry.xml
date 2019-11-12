@@ -25,7 +25,6 @@
         android:ems="10"
         android:hint="title"
         android:inputType="textPersonName"
-        android:text="Name"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
@@ -52,7 +51,6 @@
         android:ems="10"
         android:hint="description"
         android:inputType="textPersonName"
-        android:text="Name"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
@@ -110,42 +108,6 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.327" />
 
-    <RadioButton
-        android:id="@+id/healthy_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Healthy"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.376" />
-
-    <RadioButton
-        android:id="@+id/unhealthy_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Unhealthy"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.422" />
-
-    <RadioButton
-        android:id="@+id/unsure_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Unsure Button"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.467" />
-
     <ImageView
         android:id="@+id/imgCapture"
         android:layout_width="415dp"
@@ -168,5 +130,35 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.899" />
+
+    <RadioGroup
+        android:id="@+id/button_group"
+        android:layout_width="168dp"
+        android:layout_height="122dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.431">
+
+        <RadioButton
+            android:id="@+id/healthy_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Healthy" />
+
+        <RadioButton
+            android:id="@+id/unsure_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Unsure Button" />
+
+        <RadioButton
+            android:id="@+id/unhealthy_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Unhealthy" />
+    </RadioGroup>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
