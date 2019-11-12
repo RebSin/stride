@@ -84,7 +84,6 @@ public class DiaryActivity extends AppCompatActivity implements View.OnClickList
             mArrayList.add(s);
             onlyStatus.add(image);
             cursor.moveToNext();
-
         }
 
         myAdapter = new MyAdapter(mArrayList);

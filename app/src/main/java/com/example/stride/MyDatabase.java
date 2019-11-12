@@ -13,6 +13,8 @@ import java.util.concurrent.CopyOnWriteArrayList;
 
 import static com.example.stride.Constants.NAME;
 import static com.example.stride.Constants.TABLE_NAME;
+import static com.example.stride.Constants.TYPE;
+import static com.example.stride.Constants.UID;
 
 public class MyDatabase {
     private SQLiteDatabase db;
@@ -37,6 +39,11 @@ public class MyDatabase {
 
         long id = db.insert(TABLE_NAME, null, contentValues);
         return id;
+    }
+
+    public MyDatabase open() {
+        db = helper.getWritableDatabase();
+        return this;
     }
 
 //    public boolean deleteTitle(String name)
@@ -76,5 +83,20 @@ public class MyDatabase {
         String[] columns = {Constants.UID, NAME, Constants.TYPE, Constants.THE_STATUS, Constants.IMAGE};
         Cursor cursor = db.query(TABLE_NAME, columns, null, null, null, null, null);
         return cursor;
+    }
+
+    public int GetUserID(String tableName, String title) {
+        String where = TYPE+" LIKE '%"+title+"%'";
+        Cursor c = db.query(true, tableName, null,
+                where, null, null, null, null, null);
+        if(c.getCount()>0)
+            return c.getInt(0);
+        else
+            return 0;
+    }
+
+    public void deleteEntry(long row){
+        SQLiteDatabase db = helper.getWritableDatabase();
+        db.delete(TABLE_NAME, UID + "=" + row, null);
     }
 }

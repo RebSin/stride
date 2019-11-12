@@ -1,8 +1,13 @@
 package com.example.stride;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.DialogFragment;
 
+import android.app.Dialog;
 import android.content.Context;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Bitmap;
@@ -17,7 +22,7 @@ import android.widget.Toast;
 
 import org.w3c.dom.Text;
 
-public class DetailedViewActivity extends AppCompatActivity {
+public class DetailedViewActivity extends AppCompatActivity implements View.OnClickListener{
     TextView title;
     TextView description;
     TextView status;
@@ -27,6 +32,7 @@ public class DetailedViewActivity extends AppCompatActivity {
     Button deleteEntry;
     TextView detailTime;
     TextView detailLoc;
+    private MyDatabase databaseHelper;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,6 +45,11 @@ public class DetailedViewActivity extends AppCompatActivity {
         deleteEntry = (Button) findViewById(R.id.deleteentry);
         detailTime = (TextView) findViewById(R.id.detail_timestamp);
         detailLoc = (TextView) findViewById(R.id.detail_location);
+
+        deleteEntry.setOnClickListener(this);
+
+        databaseHelper = new MyDatabase(this.getApplicationContext());
+        databaseHelper.open();
 
         Long systemTime = System.currentTimeMillis()/1000;
         String timeInSeconds = systemTime.toString();
@@ -75,5 +86,14 @@ public class DetailedViewActivity extends AppCompatActivity {
         byte[] decodedByte = Base64.decode(input, 0);
         return BitmapFactory
                 .decodeByteArray(decodedByte, 0, decodedByte.length);
+    }
+
+    @Override
+    public void onClick(View view) {
+        if(view.getId() == R.id.deleteentry){
+            final int UID = databaseHelper.GetUserID("diarydatabase", title.getText().toString());
+            databaseHelper.deleteEntry(UID);
+            Toast.makeText(this, "The entry has been deleted", Toast.LENGTH_SHORT).show();
+        }
     }
 }

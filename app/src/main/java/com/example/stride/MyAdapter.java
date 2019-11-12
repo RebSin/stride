@@ -1,8 +1,12 @@
 package com.example.stride;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.database.DatabaseErrorHandler;
+import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
@@ -33,7 +37,6 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
     public ArrayList<String> list;
     Context context;
     public int numHealthy = 0;
-
     public MyAdapter(ArrayList<String> list) {
         this.list = list;
     }
@@ -47,14 +50,13 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
     }
 
     @Override
-    public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull MyViewHolder holder, final int position) {
         String[] results = (list.get(position).toString()).split(",");
         holder.titleTextView.setText(results[0]);
         holder.descriptionTextView.setText(results[1]);
         holder.statusTextView.setText(results[2]);
         holder.imageView.setImageBitmap(getBitmapFromEncodedString(results[3]));
     }
-
 
     public Bitmap getBitmapFromEncodedString(String encodedString){
         byte[] arr = Base64.decode(encodedString, Base64.URL_SAFE);
@@ -72,6 +74,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
         public TextView descriptionTextView;
         public TextView statusTextView;
         public ImageView imageView;
+        public ImageView delete;
         public LinearLayout myLayout;
 
         Context context;
@@ -84,6 +87,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
             descriptionTextView = (TextView) itemView.findViewById(R.id.descriptionEntry);
             statusTextView = (TextView) itemView.findViewById(R.id.statusEntry);
             imageView = (ImageView) itemView.findViewById(R.id.imageEntry);
+            delete = (ImageView) itemView.findViewById(R.id.imageEntry);
 
             itemView.setOnClickListener(this);
             context = itemView.getContext();
