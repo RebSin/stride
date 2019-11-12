@@ -9,6 +9,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
@@ -18,6 +19,8 @@ import android.widget.Toast;
 
 import java.util.ArrayList;
 
+import static com.example.stride.GraphActivity.DEFAULT;
+
 public class DiaryActivity extends AppCompatActivity implements View.OnClickListener, AdapterView.OnItemClickListener {
     //declare variables to use for the recycler view
     RecyclerView myRecycler;
@@ -26,6 +29,7 @@ public class DiaryActivity extends AppCompatActivity implements View.OnClickList
     MyAdapter myAdapter;
     private RecyclerView.LayoutManager mLayoutManager;
     Button addEntryButton;
+    Context context;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,7 +41,7 @@ public class DiaryActivity extends AppCompatActivity implements View.OnClickList
         mLayoutManager = new LinearLayoutManager(this);
         myRecycler.setLayoutManager(mLayoutManager);
         addEntryButton.setOnClickListener(this);
-
+        context = this;
         db = new MyDatabase(this);
         helper = new MyHelper(this);
 
@@ -100,8 +104,39 @@ public class DiaryActivity extends AppCompatActivity implements View.OnClickList
     @Override
     public void onClick(View view) {
         if(view.getId() == R.id.add_entry_button){
+            oneWeekCountdown();
             Intent intent = new Intent(view.getContext(), AddDiaryEntryActivity.class);
             startActivity(intent);
         }
+    }
+    long oneWeekAgo = System.currentTimeMillis();
+    public void oneWeekCountdown() {
+      //  Log.d("HEALTH run", "I RAN");
+        long nowTime = System.currentTimeMillis();
+        //Log.d("time", "nowtime: " + nowTime + "one week ago" + oneWeekAgo);
+        //Log.d("goalmet", "usermetgoal" + userMetGoal(true));
+        if(nowTime >= (oneWeekAgo
+        //        + 604800*1000
+        )) {
+          //  Log.d("HEALTH FOOD GOAL MET", "TIMEPASSED");
+            if (userMetGoal(true)) {
+                Toast toast = Toast.makeText(context, "You met your weekly food goal", Toast.LENGTH_SHORT);
+                toast.show(); //displays the toast
+            //    Log.d("HEALTH FOOD GOAL MET", "MET");
+                userMetGoal(false);
+            }
+            oneWeekAgo = System.currentTimeMillis(); //update originalTime to new time
+        }
+    }
+    public boolean userMetGoal(boolean weekPassed) {
+        if (weekPassed) {
+            SharedPreferences sharedPrefs = getSharedPreferences("MyData", Context.MODE_PRIVATE);
+            int usersWeeklyFoodGoal = sharedPrefs.getInt("foodgoal", 0);
+            int numHealthy = sharedPrefs.getInt("Healthy", DEFAULT);
+            if (usersWeeklyFoodGoal >= numHealthy) {
+                return true;
+            }
+        }
+        return false;
     }
 }

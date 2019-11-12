@@ -9,6 +9,7 @@ import androidx.fragment.app.FragmentActivity;
 import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
@@ -36,6 +37,8 @@ import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 
+import static com.example.stride.GraphActivity.DEFAULT;
+
 //this displays our main homepage with the map
 public class MapsActivity extends FragmentActivity implements GoogleMap.OnMarkerClickListener, View.OnClickListener,
         OnMapReadyCallback, SensorEventListener {
@@ -48,6 +51,8 @@ public class MapsActivity extends FragmentActivity implements GoogleMap.OnMarker
     public EditText searchMe;
     private SensorManager sensorManager;
     public int healthyCount = 0;
+    public EditText newGoal;
+    public Button saveGoal;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,7 +63,8 @@ public class MapsActivity extends FragmentActivity implements GoogleMap.OnMarker
         diaryButton = (Button) findViewById(R.id.diary_button);
         graphButton = (Button) findViewById(R.id.graph_button);
         searchMe = (EditText) findViewById(R.id.searchEditText);
-
+        newGoal = (EditText) findViewById(R.id.foodGoal);
+        saveGoal = (Button) findViewById(R.id.saveFoodgoal);
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
@@ -66,6 +72,7 @@ public class MapsActivity extends FragmentActivity implements GoogleMap.OnMarker
         searchButton.setOnClickListener(this); //setting onclick listeners
         diaryButton.setOnClickListener(this);
         graphButton.setOnClickListener(this);
+        saveGoal.setOnClickListener(this);
         mapFragment.getMapAsync(this);
         sensorManager = (SensorManager) getSystemService(SENSOR_SERVICE); //accessing sensors for accelerometer
         sensorManager.registerListener(this, sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER), SensorManager.SENSOR_DELAY_NORMAL);
@@ -103,12 +110,12 @@ public class MapsActivity extends FragmentActivity implements GoogleMap.OnMarker
         //if the camera has taken a photo and it takes the photo title
         //it then reads the location of the device, which should be where the photo was taken
         //then it sets a new marker to the map
-     Log.d("iRanCheck", "CAMERAACTIVATEDSAVEMARKERRAN");
+ //    Log.d("iRanCheck", "CAMERAACTIVATEDSAVEMARKERRAN");
 
         if (photoTaken) {
             thisLocHere = new LatLng(lastLat + tagNumber, lastLong + tagNumber);
             Marker thisMarkerHere;
-            Log.d("iRanCheck", "latitude:" + lastLat + " long:" + lastLong +" tagnum:" +tagNumber);
+    //        Log.d("iRanCheck", "latitude:" + lastLat + " long:" + lastLong +" tagnum:" +tagNumber);
             thisMarkerHere = mMap.addMarker(new MarkerOptions()
                     .position(thisLocHere)
                     .title(title));
@@ -135,7 +142,7 @@ public class MapsActivity extends FragmentActivity implements GoogleMap.OnMarker
                         if (task.isSuccessful()) {
                             // Set the map's camera position to the current location of the device.
                             mLastKnownLocation = task.getResult();
-                            Log.d("TASKRESULT", "" + task.getResult());
+           //                 Log.d("TASKRESULT", "" + task.getResult());
                                 mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(
                                         new LatLng(mLastKnownLocation.getLatitude(),
                                                 mLastKnownLocation.getLongitude()), DEFAULT_ZOOM));
@@ -144,8 +151,8 @@ public class MapsActivity extends FragmentActivity implements GoogleMap.OnMarker
                                 lastLatitude = mLastKnownLocation.getLatitude();
                                 lastLongitude = mLastKnownLocation.getLongitude();
                         } else {
-                            Log.d("MapsActivity", "Current location is null. Using defaults.");
-                            Log.e("MapsActivity", "Exception: %s", task.getException());
+               //             Log.d("MapsActivity", "Current location is null. Using defaults.");
+                 //           Log.e("MapsActivity", "Exception: %s", task.getException());
                             mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(mDefaultLocation, DEFAULT_ZOOM));
                             mMap.getUiSettings().setMyLocationButtonEnabled(false);
                         }
@@ -153,7 +160,7 @@ public class MapsActivity extends FragmentActivity implements GoogleMap.OnMarker
                 });
             }
         } catch(SecurityException e)  {
-            Log.e("Exception: %s", e.getMessage());
+   //         Log.e("Exception: %s", e.getMessage());
         }
     }
 
@@ -204,14 +211,14 @@ public class MapsActivity extends FragmentActivity implements GoogleMap.OnMarker
                 mMap.setMyLocationEnabled(true);
                 mMap.getUiSettings().setMyLocationButtonEnabled(true);
             } else {
-                Log.d("MapsActivity", "mylocation is NOT enabled");
+     //           Log.d("MapsActivity", "mylocation is NOT enabled");
                 mMap.setMyLocationEnabled(false);
                 mMap.getUiSettings().setMyLocationButtonEnabled(false);
                 mLastKnownLocation = null;
                 getLocationPermission();
             }
         } catch (SecurityException e)  {
-            Log.e("Exception: %s", e.getMessage());
+    //        Log.e("Exception: %s", e.getMessage());
         }
     }
 
@@ -259,7 +266,20 @@ public class MapsActivity extends FragmentActivity implements GoogleMap.OnMarker
             Intent intent = new Intent(view.getContext(), GraphActivity.class);
             startActivity(intent);
         }
+        if (view.getId() == R.id.saveFoodgoal){
+            if (newGoal.getText().length() > 0) {
+                usersWeeklyFoodGoal = Integer.parseInt(newGoal.getText().toString());
+                newGoal.setText("");
+
+                SharedPreferences.Editor editor = getSharedPreferences("MyData", MODE_PRIVATE).edit();
+                editor.putInt("foodgoal", usersWeeklyFoodGoal);
+                editor.apply();
+            }
+        }
     }
+    public int usersWeeklyFoodGoal = 0;
+
+
     float motionValue; //holds current motion value
     float prevMotion; //holds previous motion value
     private float motionVal; //holds the motion value

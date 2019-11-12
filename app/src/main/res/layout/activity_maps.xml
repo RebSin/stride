@@ -18,12 +18,20 @@
         android:layout_height="wrap_content"
         android:text="Search" />
 
-    <TextView
-        android:id="@+id/textView"
-        android:layout_width="wrap_content"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        android:text="TextView" />
+    <EditText
+        android:id="@+id/foodGoal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="number"
+        android:hint="Type your healthy food goal here"/>
+
+    <Button
+        android:id="@+id/saveFoodgoal"
+        android:layout_width="124dp"
+        android:layout_height="wrap_content"
+        android:text="Save new goal" />
+
 
     <fragment xmlns:tools="http://schemas.android.com/tools"
         android:id="@+id/map"

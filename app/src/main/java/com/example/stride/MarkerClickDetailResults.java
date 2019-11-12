@@ -17,6 +17,6 @@ public class MarkerClickDetailResults extends AppCompatActivity {
         setContentView(R.layout.activity_detailed_view);
         Intent markerLoc = getIntent();
         String locName = markerLoc.getStringExtra("Loc_Name");
-        Log.d("MarkerClickDetailResul", "name: " + locName);
+   //     Log.d("MarkerClickDetailResul", "name: " + locName);
     }
 }
