@@ -348,12 +348,4 @@ https://stackoverflow.com/questions/32290045/error-invoke-virtual-method-double-
 https://developer.android.com/training/location/receive-location-updates
 https://stackoverflow.com/questions/31161944/how-to-delete-a-single-row-in-android-sqlite
 
-https://developer.android.com/guide/topics/media/camera
-https://androidkennel.org/android-camera-access-tutorial/
-https://www.tutorialspoint.com/android/android_camera.htm
-https://abhiandroid.com/programming/camera
-
-https://stackoverflow.com/questions/4715044/android-how-to-convert-whole-imageview-to-bitmap
-https://stackoverflow.com/questions/9357668/how-to-store-image-in-sqlite-database
-*
 * */
