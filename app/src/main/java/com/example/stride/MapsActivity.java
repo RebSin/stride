@@ -311,7 +311,9 @@ public class MapsActivity extends FragmentActivity implements GoogleMap.OnMarker
     Context context;
     public void oneHourCountdown() {
         long nowTime = System.currentTimeMillis();
-        if(nowTime >= (originalTime + 1800*1000) && !moving) { //multiply by one hour in seconds by 1000 to get milliseconds
+        if(nowTime >= (originalTime +
+              //  1800
+                        30*1000) && !moving) { //multiply by one hour in seconds by 1000 to get milliseconds
             oneHourHasPassed = true;
             originalTime = System.currentTimeMillis(); //update originalTime to new time
             Toast toast = Toast.makeText(context, "You haven't moved in half an hour!", Toast.LENGTH_SHORT);
@@ -327,3 +329,19 @@ public class MapsActivity extends FragmentActivity implements GoogleMap.OnMarker
     public void onAccuracyChanged(Sensor sensor, int accuracy) {
     }
 }
+/*
+*CITATIONS:
+* https://stackoverflow.com/questions/51793345/android-material-and-appcompat-manifest-merger-failed
+
+https://stackoverflow.com/questions/26255771/make-google-map-not-full-screen-android-app
+https://developers.google.com/maps/documentation/android-sdk/marker
+
+https://developers.google.com/maps/documentation/android-sdk/current-place-tutorial
+https://github.com/googlemaps/android-samples/blob/master/tutorials/CurrentPlaceDetailsOnMap/app/src/main/java/com/example/currentplacedetailsonmap/MapsActivityCurrentPlace.java
+
+https://stackoverflow.com/questions/6897855/how-to-check-if-x-seconds-has-passed-in-java
+https://stackoverflow.com/questions/32290045/error-invoke-virtual-method-double-android-location-location-getlatitude-on
+https://developer.android.com/training/location/receive-location-updates
+https://stackoverflow.com/questions/31161944/how-to-delete-a-single-row-in-android-sqlite
+
+* */
