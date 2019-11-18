@@ -45,7 +45,7 @@ public class MyDatabase {
 //        return db.delete(TABLE_NAME, NAME + " = " + name, null) > 0;
 //    }
 
-    public void removeSingleContact(String title) {
+    public void removeAllInfo(String title) {
         //Open the database
         db = helper.getWritableDatabase();
 

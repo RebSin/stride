@@ -50,25 +50,27 @@ public class DiaryActivity extends AppCompatActivity implements View.OnClickList
         int numUnhealthy = 0;
         int numUnsure = 0;
 
+        //setting the cursor to get info
         int index1 = cursor.getColumnIndex(Constants.NAME);
         int index2 = cursor.getColumnIndex(Constants.TYPE);
         int index3 = cursor.getColumnIndex(Constants.THE_STATUS);
         int index4 = cursor.getColumnIndex(Constants.IMAGE);
 
+        //getting sharedpreferences
         SharedPreferences sharedPreferences = getSharedPreferences("MyData", Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
 
         ArrayList<String> mArrayList = new ArrayList<String>();
         ArrayList<String> onlyStatus = new ArrayList<String>();
         cursor.moveToFirst();
-        while(!cursor.isAfterLast()){
+        while(!cursor.isAfterLast()){ //iterates thro the db to get the info
             String title = cursor.getString(index1);
             String description = cursor.getString(index2);
             String status = cursor.getString(index3);
             String image = cursor.getString(index4);
             String s = title + "," + description + "," + status + "," + image;
             String temp = status.toString();
-            if(temp.equals("Healthy")) {
+            if(temp.equals("Healthy")) { //this is to check how many healthy/unhealthy/unsure items there are
                 numHealthy = numHealthy + 1;
                 editor.putInt("Healthy", numHealthy);
                 editor.commit();

@@ -35,6 +35,7 @@ public class DetailedViewActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detailed_view);
+        //initalizing all textviews, buttons and imageview
         title = (TextView) findViewById(R.id.detail_title);
         description = (TextView) findViewById(R.id.detail_description);
         status = (TextView) findViewById(R.id.detail_status);
@@ -43,27 +44,32 @@ public class DetailedViewActivity extends AppCompatActivity {
         detailTime = (TextView) findViewById(R.id.detail_timestamp);
         detailLoc = (TextView) findViewById(R.id.detail_location);
 
-        Long systemTime = System.currentTimeMillis()/1000;
-        String timeInSeconds = systemTime.toString();
-        detailTime.setText(timeInSeconds + " seconds");
+        Long systemTime = System.currentTimeMillis()/1000; //getting the system time in milli, dividing into 1000 for seconds
+        String timeInSeconds = systemTime.toString(); //sets system time long to string
+        detailTime.setText(timeInSeconds + " seconds"); //sets detailed time to time in seconds
 
+        //gets shared preferences. long and lat are retrieved from preferences
         SharedPreferences sharedPrefs = getSharedPreferences("MyData", Context.MODE_PRIVATE);
         Float latitude = sharedPrefs.getFloat("latitude", (float) -33.8523341);
         Float longitude = sharedPrefs.getFloat("longitude", (float) 151.2106085);
 
-        detailLoc.setText("Latitude: " + latitude + " Longitude: " + longitude);
+        detailLoc.setText("Latitude: " + latitude + " Longitude: " + longitude); //long and lat are displayed
 
+        //retrieving more info from shared pref
         final String theTitle = sharedPrefs.getString("title", DEFAULT);
         String theDescription = sharedPrefs.getString("description", DEFAULT);
         String theStatus = sharedPrefs.getString("status", DEFAULT);
         String theImage = sharedPrefs.getString("image", DEFAULT);
 
+        //setting the info
         title.setText(theTitle.toString());
         description.setText(theDescription.toString());
         status.setText(theStatus.toString());
         //convert from base64 to bitmap to display the image
         Bitmap temp = decodeBase64(theImage);
         image.setImageBitmap(temp);
+
+        //if delete entry button has been pressed
         deleteEntry.setOnClickListener(new View.OnClickListener() {
             public void onClick(final View v) {
                 new AlertDialog.Builder(v.getContext())
@@ -74,8 +80,8 @@ public class DetailedViewActivity extends AppCompatActivity {
                         .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int which) {
                                 // Continue with delete operation
-                                db.removeSingleContact(theTitle);
-                                Intent intent = new Intent(v.getContext(), DiaryActivity.class);
+                                db.removeAllInfo(theTitle);
+                                Intent intent = new Intent(v.getContext(), DiaryActivity.class);//open the diaryactivity
                                 startActivity(intent);
                             }
                         })

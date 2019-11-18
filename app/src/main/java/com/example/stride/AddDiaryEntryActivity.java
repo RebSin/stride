@@ -1,5 +1,6 @@
 package com.example.stride;
 
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
@@ -15,6 +16,7 @@ import android.graphics.Bitmap;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
@@ -52,11 +54,12 @@ public class AddDiaryEntryActivity extends AppCompatActivity implements View.OnC
     Location location;
     double longitude, latitude;
 
+    @RequiresApi(api = Build.VERSION_CODES.M)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_diary_entry);
-
+        //initalizing all textviews//
         title = (EditText) findViewById(R.id.title_editText);
         description = (EditText) findViewById(R.id.description_editText);
         healthy = (RadioButton) findViewById(R.id.healthy_button);
@@ -64,10 +67,24 @@ public class AddDiaryEntryActivity extends AppCompatActivity implements View.OnC
         unsure = (RadioButton) findViewById(R.id.unsure_button);
         take_photo_button = (Button) findViewById(R.id.picture_button);
         image = (ImageView) findViewById(R.id.imgCapture);
+        //initalizing all textviews//
 
+        //getting location
         locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+        if (checkSelfPermission(Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && checkSelfPermission(Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            // TODO: Consider calling
+            //    Activity#requestPermissions
+            // here to request the missing permissions, and then overriding
+            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
+            //                                          int[] grantResults)
+            // to handle the case where the user grants the permission. See the documentation
+            // for Activity#requestPermissions for more details.
+            return;
+        }
         locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, this);
+        //getting location
 
+        //checks if recieved permission to use camera. If yes, opens camera
         take_photo_button.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v){
@@ -79,19 +96,26 @@ public class AddDiaryEntryActivity extends AppCompatActivity implements View.OnC
             }
         });
 
+        //sets onclicklister for the three options
         healthy.setOnClickListener(this);
         unhealthy.setOnClickListener(this);
         unsure.setOnClickListener(this);
 
+        //gets database
         db = new MyDatabase(this);
     }
 
 
     @Override
-    public void onLocationChanged(Location location) {
-//       longitude = location.getLongitude();
-//       latitude = location.getLatitude();
-//    Log.d("addnewdiaryentry", "long: " + longitude + " lat: " +latitude);
+    public void onLocationChanged(Location location) { //if the location has changed, get the new loc
+       longitude = location.getLongitude();
+       latitude = location.getLatitude();
+       if (newDiaryEntryAdded) { //if a new diary entry has been added, then add a new marker
+           MapsActivity.cameraActivatedSaveMarker(true, mapsTitle, longitude, latitude);
+           newDiaryEntryAdded = false; //set boolean to false so that it only adds the marker once
+       }
+
+    Log.d("addnewdiaryentry", "long: " + longitude + " lat: " +latitude);
     }
 
     @Override
@@ -113,11 +137,11 @@ public class AddDiaryEntryActivity extends AppCompatActivity implements View.OnC
         /*
          * Requests camera permission
          */
-        if (ContextCompat.checkSelfPermission(this.getApplicationContext(),
+        if (ContextCompat.checkSelfPermission(this.getApplicationContext(), //checks if permission already there
                 android.Manifest.permission.CAMERA)
                 == PackageManager.PERMISSION_GRANTED) {
             mCameraPermissionGranted = true;
-        } else {
+        } else { //if not permision granted, request permission
             ActivityCompat.requestPermissions(this,
                     new String[]{android.Manifest.permission.CAMERA},
                     PERMISSIONS_REQUEST_CAMERA);
@@ -136,21 +160,23 @@ public class AddDiaryEntryActivity extends AppCompatActivity implements View.OnC
         }
     }
     String mapsTitle;
+    boolean newDiaryEntryAdded;
     public void addDiaryEntry(View view){
         String name = title.getText().toString();
-        mapsTitle = name;
-        MapsActivity.cameraActivatedSaveMarker(true, mapsTitle, longitude, latitude);
+        mapsTitle = name; //gets the title of the name to pass to the marker
+        newDiaryEntryAdded = true; //boolean that allows the marker to be created
         String type = description.getText().toString();
         Toast.makeText(this, name + type, Toast.LENGTH_SHORT).show();
-        long id = db.insertData(name, type, status, temp);
-        if(id < 0){
+        long id = db.insertData(name, type, status, temp); //inserts data to database and retrieves the id
+        if(id < 0){ //if the id is smaller than zero, the data was not stored
             Toast.makeText(this, "fail", Toast.LENGTH_SHORT).show();
-        } else{
+        } else{ //else the data was stored
             Toast.makeText(this, "success" + " " + name + " " + type, Toast.LENGTH_SHORT).show();
+            //set the boxes back to false
             healthy.setChecked(false);
             unhealthy.setChecked(false);
             unsure.setChecked(false);
-            image.setImageResource(android.R.color.transparent);
+            image.setImageResource(android.R.color.transparent); //clear the image
         }
         //clear the input boxes after the button is pressed
         title.setText("");
@@ -166,7 +192,7 @@ public class AddDiaryEntryActivity extends AppCompatActivity implements View.OnC
 
     @Override
     public void onClick(View view) {
-
+        //checks which button was pressed and sets status to that button
         if(view.getId() == R.id.healthy_button){
             status = "Healthy";
         } else if(view.getId() == R.id.unhealthy_button){
