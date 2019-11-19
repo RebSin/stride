@@ -111,7 +111,7 @@ public class AddDiaryEntryActivity extends AppCompatActivity implements View.OnC
        longitude = location.getLongitude();
        latitude = location.getLatitude();
        if (newDiaryEntryAdded) { //if a new diary entry has been added, then add a new marker
-           MapsActivity.cameraActivatedSaveMarker(true, mapsTitle, longitude, latitude);
+           MapsActivity.cameraActivatedSaveMarker(true, mapsTitle, latitude, longitude);
            newDiaryEntryAdded = false; //set boolean to false so that it only adds the marker once
        }
 
