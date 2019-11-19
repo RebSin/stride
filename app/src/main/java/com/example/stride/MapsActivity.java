@@ -113,7 +113,7 @@ public class MapsActivity extends FragmentActivity implements GoogleMap.OnMarker
  //    Log.d("iRanCheck", "CAMERAACTIVATEDSAVEMARKERRAN");
 
         if (photoTaken) {
-            thisLocHere = new LatLng(lastLat, lastLong);
+            thisLocHere = new LatLng(lastLat + tagNumber, lastLong + tagNumber);
             Marker thisMarkerHere;
     //        Log.d("iRanCheck", "latitude:" + lastLat + " long:" + lastLong +" tagnum:" +tagNumber);
             thisMarkerHere = mMap.addMarker(new MarkerOptions()
