@@ -54,6 +54,10 @@ public class DiaryActivity extends AppCompatActivity implements View.OnClickList
             cursor = db.getData();
         } else if(the_filter == "healthy_filter"){
             cursor = db.getStatusFilteredData("Healthy");
+        } else if(the_filter == "unhealthy_filter"){
+            cursor = db.getStatusFilteredData("Unhealthy");
+        } else if(the_filter == "unsure_filter"){
+            cursor = db.getStatusFilteredData("Unsure");
         }
 
         int numHealthy = 0;
