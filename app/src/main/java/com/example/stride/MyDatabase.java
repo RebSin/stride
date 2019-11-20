@@ -77,4 +77,5 @@ public class MyDatabase {
         Cursor cursor = db.query(TABLE_NAME, columns, null, null, null, null, null);
         return cursor;
     }
+    
 }
