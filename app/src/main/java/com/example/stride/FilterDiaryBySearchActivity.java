@@ -10,10 +10,11 @@ import android.provider.MediaStore;
 import android.view.View;
 import android.widget.Button;
 import android.widget.RadioButton;
+import android.widget.Toast;
 
 public class FilterDiaryBySearchActivity extends AppCompatActivity implements View.OnClickListener {
     Button submit_button;
-    String clicked_filter;
+    String clicked_filter = "nothing";
     RadioButton healthy_button;
     RadioButton unhealthy_button;
     RadioButton unsure_button;
@@ -29,7 +30,12 @@ public class FilterDiaryBySearchActivity extends AppCompatActivity implements Vi
         unhealthy_button = (RadioButton) findViewById(R.id.unhealthy_filter_button);
         unsure_button = (RadioButton) findViewById(R.id.unsure_filter_button);
         all_button = (RadioButton) findViewById(R.id.all_filter_button);
+
         submit_button.setOnClickListener(this);
+        healthy_button.setOnClickListener(this);
+        unhealthy_button.setOnClickListener(this);
+        unsure_button.setOnClickListener(this);
+        all_button.setOnClickListener(this);
     }
 
     @Override
@@ -47,13 +53,17 @@ public class FilterDiaryBySearchActivity extends AppCompatActivity implements Vi
             clicked_filter = "all_filter";
         }
         if(view.getId() == R.id.submit_button){
-            SharedPreferences sharedPrefs = getSharedPreferences("MyData", Context.MODE_PRIVATE);
-            SharedPreferences.Editor editor = sharedPrefs.edit();
-            editor.putString("filter", clicked_filter);
-            editor.commit();
+            if(clicked_filter == "nothing"){
+                Toast.makeText(this, "Please Select a Filter", Toast.LENGTH_LONG).show();
+            } else{
+                SharedPreferences sharedPrefs = getSharedPreferences("MyData", Context.MODE_PRIVATE);
+                SharedPreferences.Editor editor = sharedPrefs.edit();
+                editor.putString("filter", clicked_filter);
+                editor.commit();
 
-            Intent intent = new Intent(view.getContext(), DiaryActivity.class);
-            startActivity(intent);
+                Intent intent = new Intent(view.getContext(), DiaryActivity.class);
+                startActivity(intent);
+            }
         }
     }
 }

@@ -28,6 +28,7 @@ public class DiaryActivity extends AppCompatActivity implements View.OnClickList
     MyHelper helper;
     MyAdapter myAdapter;
     private RecyclerView.LayoutManager mLayoutManager;
+    public static final String DEFAULT_ALT = "not available";
     Button addEntryButton;
     Context context;
 
@@ -44,8 +45,17 @@ public class DiaryActivity extends AppCompatActivity implements View.OnClickList
         context = this;
         db = new MyDatabase(this);
         helper = new MyHelper(this);
-
         Cursor cursor = db.getData();
+
+        SharedPreferences sharedPrefs = getSharedPreferences("MyData", Context.MODE_PRIVATE);
+        String the_filter = sharedPrefs.getString("filter", DEFAULT_ALT);
+
+        if(the_filter == "all_filter"){
+            cursor = db.getData();
+        } else if(the_filter == "healthy_filter"){
+            cursor = db.getStatusFilteredData("Healthy");
+        }
+
         int numHealthy = 0;
         int numUnhealthy = 0;
         int numUnsure = 0;
@@ -86,7 +96,6 @@ public class DiaryActivity extends AppCompatActivity implements View.OnClickList
             mArrayList.add(s);
             onlyStatus.add(image);
             cursor.moveToNext();
-
         }
 
         myAdapter = new MyAdapter(mArrayList);
