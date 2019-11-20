@@ -82,7 +82,7 @@ public class MyDatabase {
         SQLiteDatabase db = helper.getWritableDatabase();
 
         String[] columns = {Constants.UID, NAME, Constants.TYPE, Constants.THE_STATUS, Constants.IMAGE};
-        String selection = Constants.TYPE + "='" +the_status+ "'";
+        String selection = Constants.THE_STATUS + "='" +the_status+ "'";
         Cursor cursor = db.query(TABLE_NAME, columns, selection, null, null, null, null);
         return cursor;
     }
