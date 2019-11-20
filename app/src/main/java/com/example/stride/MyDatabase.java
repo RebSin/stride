@@ -56,6 +56,87 @@ public class MyDatabase {
         //Close the database
         db.close();
     }
+    public String getSelectedType(Long id)
+    {
+        SQLiteDatabase db = helper.getWritableDatabase();
+        String[] columns = {Constants.UID, Constants.NAME, Constants.TYPE, Constants.THE_STATUS, Constants.IMAGE};
+        String selection = Constants.UID + "='" +id+ "'";
+        Cursor cursor = db.query(Constants.TABLE_NAME, columns, selection, null, null, null, null);
+
+        StringBuffer buffer = new StringBuffer();
+        while (cursor.moveToNext()) {
+            int index1 = cursor.getColumnIndex(Constants.NAME);
+            int index2 = cursor.getColumnIndex(Constants.TYPE);
+            int index3 = cursor.getColumnIndex(Constants.THE_STATUS);
+            int index4 = cursor.getColumnIndex(Constants.IMAGE);
+            String thisType = cursor.getString(index2);
+            buffer.append(thisType + "\n");
+        }
+        return buffer.toString();
+    }
+
+    public String getSelectedStatus(Long id)
+    {
+        SQLiteDatabase db = helper.getWritableDatabase();
+        String[] columns = {Constants.UID, Constants.NAME, Constants.TYPE, Constants.THE_STATUS, Constants.IMAGE};
+        String selection = Constants.UID + "='" +id+ "'";
+        Cursor cursor = db.query(Constants.TABLE_NAME, columns, selection, null, null, null, null);
+
+        StringBuffer buffer = new StringBuffer();
+        while (cursor.moveToNext()) {
+            int index1 = cursor.getColumnIndex(Constants.NAME);
+            int index2 = cursor.getColumnIndex(Constants.TYPE);
+            int index3 = cursor.getColumnIndex(Constants.THE_STATUS);
+            int index4 = cursor.getColumnIndex(Constants.IMAGE);
+            String thisStatus = cursor.getString(index3);
+            buffer.append(thisStatus + "\n");
+        }
+        return buffer.toString();
+    }
+    public String getSelectedImage(Long id)
+    {
+        SQLiteDatabase db = helper.getWritableDatabase();
+        String[] columns = {Constants.UID, Constants.NAME, Constants.TYPE, Constants.THE_STATUS, Constants.IMAGE};
+        String selection = Constants.UID + "='" +id+ "'";
+        Cursor cursor = db.query(Constants.TABLE_NAME, columns, selection, null, null, null, null);
+
+        StringBuffer buffer = new StringBuffer();
+        while (cursor.moveToNext()) {
+            int index1 = cursor.getColumnIndex(Constants.NAME);
+            int index2 = cursor.getColumnIndex(Constants.TYPE);
+            int index3 = cursor.getColumnIndex(Constants.THE_STATUS);
+            int index4 = cursor.getColumnIndex(Constants.IMAGE);
+            String thisImage = cursor.getString(index4);
+            buffer.append(thisImage);
+        }
+        return buffer.toString();
+    }
+
+//    public String getSelectedData(Long id)
+//    {
+//        //select plants from database of type 'herb'
+//        SQLiteDatabase db = helper.getWritableDatabase();
+//
+//        String[] columns = {Constants.UID, Constants.NAME, Constants.TYPE, Constants.THE_STATUS, Constants.IMAGE};
+//
+//        String selection = Constants.UID + "='" +id+ "'";
+//        Cursor cursor = db.query(Constants.TABLE_NAME, columns, selection, null, null, null, null);
+//
+//        StringBuffer buffer = new StringBuffer();
+//        while (cursor.moveToNext()) {
+//
+//            int index1 = cursor.getColumnIndex(Constants.NAME);
+//            int index2 = cursor.getColumnIndex(Constants.TYPE);
+//            int index3 = cursor.getColumnIndex(Constants.THE_STATUS);
+//            int index4 = cursor.getColumnIndex(Constants.IMAGE);
+//            String thisName = cursor.getString(index1);
+//            String thisType = cursor.getString(index2);
+//            String thisStatus = cursor.getString(index3);
+//            String thisImage = cursor.getString(index4);
+//            buffer.append(thisName + " " + thisType + " " + thisStatus + " " + thisImage + "\n");
+//        }
+//        return buffer.toString();
+//    }
 
     private String getEncodedString(Bitmap bitmap){
         ByteArrayOutputStream os = new ByteArrayOutputStream();
@@ -77,4 +158,7 @@ public class MyDatabase {
         Cursor cursor = db.query(TABLE_NAME, columns, null, null, null, null, null);
         return cursor;
     }
+
+
+
 }
