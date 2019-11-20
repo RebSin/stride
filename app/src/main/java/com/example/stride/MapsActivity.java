@@ -265,8 +265,12 @@ public class MapsActivity extends FragmentActivity implements GoogleMap.OnMarker
             }
 
         }
-        if(view.getId() == R.id.diary_button){
+        /*if(view.getId() == R.id.diary_button){
             Intent intent = new Intent(view.getContext(), DiaryActivity.class);
+            startActivity(intent);
+        }*/
+        if(view.getId() == R.id.diary_button){
+            Intent intent = new Intent(view.getContext(), FilterDiaryBySearchActivity.class);
             startActivity(intent);
         }
         if(view.getId() == R.id.graph_button){
