@@ -21,6 +21,8 @@ import android.widget.Toast;
 
 import org.w3c.dom.Text;
 
+import java.util.Date;
+
 public class DetailedViewActivity extends AppCompatActivity {
     TextView title;
     TextView description;
@@ -45,9 +47,10 @@ public class DetailedViewActivity extends AppCompatActivity {
         detailTime = (TextView) findViewById(R.id.detail_timestamp);
         detailLoc = (TextView) findViewById(R.id.detail_location);
 
-        Long systemTime = System.currentTimeMillis()/1000; //getting the system time in milli, dividing into 1000 for seconds
-        String timeInSeconds = systemTime.toString(); //sets system time long to string
-        detailTime.setText(timeInSeconds + " seconds"); //sets detailed time to time in seconds
+        Long systemTime = System.currentTimeMillis();//gets system milliseconds
+        Date currentDate = new Date(systemTime); //turns milliseconds into the date
+        String theDate = currentDate.toString(); //sets the date to a string
+//        detailTime.setText(theDate); //sets detailed date and time
 
         //gets shared preferences. long and lat are retrieved from preferences
         SharedPreferences sharedPrefs = getSharedPreferences("MyData", Context.MODE_PRIVATE);
@@ -61,6 +64,8 @@ public class DetailedViewActivity extends AppCompatActivity {
         String theDescription = sharedPrefs.getString("description", DEFAULT);
         String theStatus = sharedPrefs.getString("status", DEFAULT);
         String theImage = sharedPrefs.getString("image", DEFAULT);
+        String thDate = sharedPrefs.getString("date", DEFAULT);
+        detailTime.setText(thDate); //sets detailed date and time
         Log.d("detailedviewactivity", "theImage: " + theImage);
 
         //setting the info

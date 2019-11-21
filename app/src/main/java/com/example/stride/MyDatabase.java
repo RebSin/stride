@@ -24,13 +24,14 @@ public class MyDatabase {
         helper = new MyHelper(context);
     }
 
-    public long insertData(String name, String type, String the_status, Bitmap image){
+    public long insertData(String name, String type, String the_status, Bitmap image, String date){
+        //String date
         db = helper.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
         contentValues.put(NAME, name);
         contentValues.put(Constants.TYPE, type);
         contentValues.put(Constants.THE_STATUS, the_status);
-
+        contentValues.put(Constants.DATE, date);
         photo = getEncodedString(image);
 
         contentValues.put(Constants.IMAGE, photo);
@@ -44,6 +45,16 @@ public class MyDatabase {
 //        db = helper.getWritableDatabase();
 //        return db.delete(TABLE_NAME, NAME + " = " + name, null) > 0;
 //    }
+
+    Cursor getStatusFilteredData (String the_status){
+    SQLiteDatabase db = helper.getWritableDatabase();
+
+    String[] columns = {Constants.UID, NAME, Constants.TYPE, Constants.THE_STATUS, Constants.IMAGE};
+    //Constants.DATE
+    String selection = Constants.THE_STATUS + "='" +the_status+ "'";
+    Cursor cursor = db.query(TABLE_NAME, columns, selection, null, null, null, null);
+        return cursor;
+}
 
     public void removeAllInfo(String title) {
         //Open the database
@@ -59,10 +70,9 @@ public class MyDatabase {
 
     public String getSelectedType(Long id)
     {
-        //select plants from database of type 'herb'
         SQLiteDatabase db = helper.getWritableDatabase();
-        String[] columns = {Constants.UID, Constants.NAME, Constants.TYPE, Constants.THE_STATUS, Constants.IMAGE};
-
+        String[] columns = {Constants.UID, Constants.NAME, Constants.TYPE, Constants.THE_STATUS, Constants.IMAGE, Constants.DATE};
+     //Constants.DATE
         String selection = Constants.UID + "='" +id+ "'";
         Cursor cursor = db.query(Constants.TABLE_NAME, columns, selection, null, null, null, null);
 
@@ -73,6 +83,8 @@ public class MyDatabase {
             int index2 = cursor.getColumnIndex(Constants.TYPE);
             int index3 = cursor.getColumnIndex(Constants.THE_STATUS);
             int index4 = cursor.getColumnIndex(Constants.IMAGE);
+            //int index5 = cursor.getColumnIndex(Constants.DATE);
+
             String Type = cursor.getString(index2);
             buffer.append(Type);
         }
@@ -81,8 +93,8 @@ public class MyDatabase {
     public String getSelectedStatus(Long id)
     {
         SQLiteDatabase db = helper.getWritableDatabase();
-        String[] columns = {Constants.UID, Constants.NAME, Constants.TYPE, Constants.THE_STATUS, Constants.IMAGE};
-
+        String[] columns = {Constants.UID, Constants.NAME, Constants.TYPE, Constants.THE_STATUS, Constants.IMAGE, Constants.DATE};
+        //Constants.DATE
         String selection = Constants.UID + "='" +id+ "'";
         Cursor cursor = db.query(Constants.TABLE_NAME, columns, selection, null, null, null, null);
 
@@ -93,15 +105,38 @@ public class MyDatabase {
             int index2 = cursor.getColumnIndex(Constants.TYPE);
             int index3 = cursor.getColumnIndex(Constants.THE_STATUS);
             int index4 = cursor.getColumnIndex(Constants.IMAGE);
+            //int index5 = cursor.getColumnIndex(Constants.DATE);
             String Status = cursor.getString(index3);
             buffer.append(Status);
         }
         return buffer.toString();
     }
 
+    public String getSelectedDate(Long id)
+    {
+        SQLiteDatabase db = helper.getWritableDatabase();
+        String[] columns = {Constants.UID, Constants.NAME, Constants.TYPE, Constants.THE_STATUS, Constants.IMAGE, Constants.DATE};
+        //Constants.DATE
+        String selection = Constants.UID + "='" +id+ "'";
+        Cursor cursor = db.query(Constants.TABLE_NAME, columns, selection, null, null, null, null);
+
+        StringBuffer buffer = new StringBuffer();
+        while (cursor.moveToNext()) {
+
+            int index1 = cursor.getColumnIndex(Constants.NAME);
+            int index2 = cursor.getColumnIndex(Constants.TYPE);
+            int index3 = cursor.getColumnIndex(Constants.THE_STATUS);
+            int index4 = cursor.getColumnIndex(Constants.IMAGE);
+            int index5 = cursor.getColumnIndex(Constants.DATE);
+            String Status = cursor.getString(index5);
+            buffer.append(Status);
+        }
+        return buffer.toString();
+    }
+
+
     public String getSelectedImage(Long id)
     {
-        //select plants from database of type 'herb'
         SQLiteDatabase db = helper.getWritableDatabase();
         String[] columns = {Constants.UID, Constants.NAME, Constants.TYPE, Constants.THE_STATUS, Constants.IMAGE};
 
@@ -115,6 +150,7 @@ public class MyDatabase {
             int index2 = cursor.getColumnIndex(Constants.TYPE);
             int index3 = cursor.getColumnIndex(Constants.THE_STATUS);
             int index4 = cursor.getColumnIndex(Constants.IMAGE);
+            //int index5 = cursor.getColumnIndex(Constants.DATE);
             String Image = cursor.getString(index4);
             buffer.append(Image);
         }
@@ -137,7 +173,8 @@ public class MyDatabase {
     public Cursor getData(){
         SQLiteDatabase db = helper.getWritableDatabase();
 
-        String[] columns = {Constants.UID, NAME, Constants.TYPE, Constants.THE_STATUS, Constants.IMAGE};
+        String[] columns = {Constants.UID, NAME, Constants.TYPE, Constants.THE_STATUS, Constants.IMAGE, Constants.DATE};
+        //Constants.DATE
         Cursor cursor = db.query(TABLE_NAME, columns, null, null, null, null, null);
         return cursor;
     }

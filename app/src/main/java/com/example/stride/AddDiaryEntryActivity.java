@@ -167,7 +167,12 @@ public class AddDiaryEntryActivity extends AppCompatActivity implements View.OnC
         mapsTitle = name; //gets the title of the name to pass to the marker
         String type = description.getText().toString();
         Toast.makeText(this, name + type, Toast.LENGTH_SHORT).show();
-        long id = db.insertData(name, type, status, temp); //inserts data to database and retrieves the id
+
+        Long systemTime = System.currentTimeMillis();//gets system milliseconds
+        Date currentDate = new Date(systemTime); //turns milliseconds into the date
+        String theDate = currentDate.toString(); //sets the date to a string
+
+        long id = db.insertData(name, type, status, temp, theDate); //inserts data to database and retrieves the id
         thisId = id; //getting the entry id
         newDiaryEntryAdded = true; //boolean that allows the marker to be created
         if(id < 0){ //if the id is smaller than zero, the data was not stored

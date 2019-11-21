@@ -69,6 +69,7 @@ public class DiaryActivity extends AppCompatActivity implements View.OnClickList
         int index2 = cursor.getColumnIndex(Constants.TYPE);
         int index3 = cursor.getColumnIndex(Constants.THE_STATUS);
         int index4 = cursor.getColumnIndex(Constants.IMAGE);
+        int index5 = cursor.getColumnIndex(Constants.DATE);
 
         //getting sharedpreferences
         SharedPreferences sharedPreferences = getSharedPreferences("MyData", Context.MODE_PRIVATE);
@@ -82,7 +83,8 @@ public class DiaryActivity extends AppCompatActivity implements View.OnClickList
             String description = cursor.getString(index2);
             String status = cursor.getString(index3);
             String image = cursor.getString(index4);
-            String s = title + "," + description + "," + status + "," + image;
+            String date = cursor.getString(index5);
+            String s = title + "," + description + "," + status + "," + image + "," + date;
             String temp = status.toString();
             if(temp.equals("Healthy")) { //this is to check how many healthy/unhealthy/unsure items there are
                 numHealthy = numHealthy + 1;

@@ -10,6 +10,7 @@ public class Constants { //a list of constant values to use
     public static final String TYPE = "Description";
     public static final String THE_STATUS = "theStatus";
     public static final String IMAGE = "Image_URL";
+    public static final String DATE = "date";
 
     public static final int DATABASE_VERSION = 4;
 }
