@@ -2,6 +2,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#A3F5E7BF"
+    android:backgroundTint="#f5e7bf"
     android:paddingLeft="16dp"
     android:paddingTop="16dp"
     android:paddingRight="16dp"
@@ -35,7 +37,8 @@
         android:layout_marginStart="14dp"
         android:layout_marginLeft="14dp"
         android:layout_marginTop="327dp"
-        android:text="Username" />
+        android:text="Username"
+        android:textColor="#3471eb" />
 
     <EditText
         android:id="@+id/editTextUsername"
@@ -63,7 +66,8 @@
         android:layout_marginTop="32dp"
         android:layout_marginEnd="0dp"
         android:layout_marginRight="0dp"
-        android:text="Password" />
+        android:text="Password"
+        android:textColor="#3471eb" />
 
     <Button
         android:id="@+id/submitButton"
@@ -75,32 +79,41 @@
         android:layout_marginTop="37dp"
         android:layout_marginEnd="0dp"
         android:layout_marginRight="0dp"
+        android:backgroundTint="#3471eb"
         android:onClick="gotoActivity2"
-        android:text="Register" />
+        android:text="Register"
+        android:textColor="#ffffff" />
 
     <TextView
         android:id="@+id/login_message"
-        android:layout_width="wrap_content"
-        android:layout_height="92dp"
+        android:layout_width="367dp"
+        android:layout_height="84dp"
         android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
         android:layout_alignParentBottom="true"
-        android:layout_marginTop="201dp"
-        android:layout_marginBottom="422dp"
-        android:text="In order to proceed, please make a Stride account by entering a username and password and clicking register." />
+        android:layout_marginTop="217dp"
+        android:layout_marginEnd="28dp"
+        android:layout_marginRight="28dp"
+        android:layout_marginBottom="414dp"
+        android:text="In order to proceed, please make a Stride account by entering a username and password and clicking register."
+        android:textSize="16dp" />
 
     <TextView
         android:id="@+id/name"
-        android:layout_width="110dp"
-        android:layout_height="34dp"
+        android:layout_width="136dp"
+        android:layout_height="48dp"
         android:layout_alignParentStart="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentEnd="true"
         android:layout_alignParentRight="true"
-        android:layout_marginStart="142dp"
-        android:layout_marginLeft="142dp"
+        android:layout_marginStart="115dp"
+        android:layout_marginLeft="115dp"
         android:layout_marginEnd="144dp"
         android:layout_marginRight="144dp"
+        android:gravity="center"
         android:text="Stride."
-        android:textSize="30dp"
+        android:textColor="#3471eb"
+        android:textSize="40dp"
         android:textStyle="bold" />
 </RelativeLayout>

@@ -5,6 +5,8 @@
     android:paddingRight="16dp"
     android:paddingTop="16dp"
     android:paddingBottom="16dp"
+    android:background="#A3F5E7BF"
+    android:backgroundTint="#f5e7bf"
     tools:context=".LoginActivity"><![CDATA[
     android:id="@+id/mainlayout">
 
@@ -26,18 +28,20 @@
 
     <TextView
         android:id="@+id/name2"
-        android:layout_width="111dp"
-        android:layout_height="43dp"
+        android:layout_width="142dp"
+        android:layout_height="55dp"
         android:layout_alignParentStart="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentEnd="true"
         android:layout_alignParentRight="true"
-        android:layout_marginStart="142dp"
-        android:layout_marginLeft="142dp"
-        android:layout_marginEnd="142dp"
-        android:layout_marginRight="142dp"
+        android:layout_marginStart="133dp"
+        android:layout_marginLeft="133dp"
+        android:layout_marginEnd="120dp"
+        android:layout_marginRight="120dp"
+        android:gravity="center"
         android:text="Stride."
-        android:textSize="30dp"
+        android:textColor="#3471eb"
+        android:textSize="40dp"
         android:textStyle="bold" />
 
     <EditText
@@ -70,7 +74,8 @@
         android:layout_marginTop="362dp"
         android:layout_marginEnd="294dp"
         android:layout_marginRight="294dp"
-        android:text="Username" />
+        android:text="Username"
+        android:textColor="#3471eb"/>
 
     <TextView
         android:id="@+id/textView4"
@@ -82,14 +87,16 @@
         android:layout_marginStart="16dp"
         android:layout_marginLeft="16dp"
         android:layout_marginTop="85dp"
-        android:text="Password" />
+        android:text="Password"
+        android:textColor="#3471eb"/>
 
     <TextView
         android:id="@+id/retrPassword"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignTop="@+id/textView4"
-        android:layout_marginTop="0dp" />
+        android:layout_marginTop="0dp"
+        android:textColor="#3471eb"/>
 
     <EditText
         android:id="@+id/passInput"
@@ -125,7 +132,9 @@
         android:layout_marginRight="27dp"
         android:layout_marginBottom="108dp"
         android:onClick="toSettings"
-        android:text="Login" />
+        android:text="Login"
+        android:backgroundTint="#3471eb"
+        android:textColor="#ffffff"/>
 
     <TextView
         android:id="@+id/EditContent"
@@ -142,6 +151,7 @@
         android:layout_alignParentBottom="true"
         android:layout_marginTop="219dp"
         android:layout_marginBottom="421dp"
+        android:textSize="16dp"
         android:text="Looks like you already have a Stride account. To continue, please enter your username and password below." />
 
 </RelativeLayout>
