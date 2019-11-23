@@ -67,7 +67,7 @@ public class GraphActivity extends AppCompatActivity {
         barEntries.add(new BarEntry(2f, numHealthy));
         //unhealthy food based on number in shared preferences
         barEntries.add(new BarEntry(4f, numUnhealthy));
-        //unsure food based on number in shared preferences 
+        //unsure food based on number in shared preferences
         barEntries.add(new BarEntry(6f, numUnsure));
     }
 }

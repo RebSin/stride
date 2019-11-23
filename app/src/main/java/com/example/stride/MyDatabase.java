@@ -20,19 +20,20 @@ public class MyDatabase {
     private final MyHelper helper;
     String photo;
     public MyDatabase(Context c){
+        //set context and helper of the db
         context = c;
         helper = new MyHelper(context);
     }
 
     public long insertData(String name, String type, String the_status, Bitmap image){
+        //get writable database so it will be created
         db = helper.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
+        //put the name, type, status, image into the db
         contentValues.put(NAME, name);
         contentValues.put(Constants.TYPE, type);
         contentValues.put(Constants.THE_STATUS, the_status);
-
-        photo = getEncodedString(image);
-
+        photo = getEncodedString(image); //convert image to string before storing it
         contentValues.put(Constants.IMAGE, photo);
 
         long id = db.insert(TABLE_NAME, null, contentValues);
@@ -78,17 +79,21 @@ public class MyDatabase {
         }
         return buffer.toString();
     }
-    public String getSelectedStatus(Long id)
-    {
+
+    public String getSelectedStatus(Long id) {
+        //get writable database
         SQLiteDatabase db = helper.getWritableDatabase();
+        //create array of paramaters
         String[] columns = {Constants.UID, Constants.NAME, Constants.TYPE, Constants.THE_STATUS, Constants.IMAGE};
 
+        //select the entry where the UID matches id
         String selection = Constants.UID + "='" +id+ "'";
         Cursor cursor = db.query(Constants.TABLE_NAME, columns, selection, null, null, null, null);
 
         StringBuffer buffer = new StringBuffer();
+        //get pointer to the entries
         while (cursor.moveToNext()) {
-
+            //place all entries into a buffer
             int index1 = cursor.getColumnIndex(Constants.NAME);
             int index2 = cursor.getColumnIndex(Constants.TYPE);
             int index3 = cursor.getColumnIndex(Constants.THE_STATUS);
@@ -96,11 +101,11 @@ public class MyDatabase {
             String Status = cursor.getString(index3);
             buffer.append(Status);
         }
+        //return the buffer
         return buffer.toString();
     }
 
-    public String getSelectedImage(Long id)
-    {
+    public String getSelectedImage(Long id) {
         //select plants from database of type 'herb'
         SQLiteDatabase db = helper.getWritableDatabase();
         String[] columns = {Constants.UID, Constants.NAME, Constants.TYPE, Constants.THE_STATUS, Constants.IMAGE};
@@ -122,9 +127,11 @@ public class MyDatabase {
     }
 
     private String getEncodedString(Bitmap bitmap){
+        //convert a bitmap of an image into a string so it can be entered into the db
         ByteArrayOutputStream os = new ByteArrayOutputStream();
         bitmap.compress(Bitmap.CompressFormat.JPEG, 100, os);
         byte[] imageArr = os.toByteArray();
+        //return the string
         return Base64.encodeToString(imageArr, Base64.URL_SAFE);
     }
 
