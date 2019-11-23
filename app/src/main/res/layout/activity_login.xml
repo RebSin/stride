@@ -5,8 +5,6 @@
     android:paddingRight="16dp"
     android:paddingTop="16dp"
     android:paddingBottom="16dp"
-    android:background="#A3F5E7BF"
-    android:backgroundTint="#f5e7bf"
     tools:context=".LoginActivity"><![CDATA[
     android:id="@+id/mainlayout">
 

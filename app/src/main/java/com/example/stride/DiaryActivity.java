@@ -118,9 +118,9 @@ public class DiaryActivity extends AppCompatActivity implements View.OnClickList
             String status = cursor.getString(index3);
             String image = cursor.getString(index4);
             String date = cursor.getString(index5);
-//            Log.d("diaryactivity", "IAMTHEDATE: " + date);
+
             String s = title + "," + description + "," + status + "," + date + "," + image;
-       //     Log.d("diaryactivity", "arraylistadd: " + s);
+
             String temp = status.toString();
             //update the number for how much of a certain food was eaten in shared preferences
             if(temp.equals("Healthy")) { //this is to check how many healthy/unhealthy/unsure items there are
