@@ -1,6 +1,7 @@
 package com.example.stride;
 
 import androidx.annotation.RequiresApi;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
@@ -9,6 +10,7 @@ import androidx.fragment.app.FragmentTransaction;
 
 import android.Manifest;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
@@ -35,21 +37,27 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class AddDiaryEntryActivity extends AppCompatActivity implements View.OnClickListener, LocationListener {
+    //declare variables for edit text
     EditText title;
     EditText description;
+
+    //declare variables for radio buttons and button
     RadioButton healthy;
     RadioButton unhealthy;
     RadioButton unsure;
     Button take_photo_button;
+
+    //declare variable for the image
     ImageView image;
+
+    //temp will store the bitmap value of the image
     Bitmap temp;
+
+    //this is the request code sent in the intent
     static final int Image_Capture_Code = 1;
 
     MyDatabase db;
-    public String status;
-    public int numHealthy = 0;
-    public int numUnsure = 0;
-    public int numUnhealthy = 0;
+    public String status = "nothing"; //used to check if the user has entered a status
     protected LocationManager locationManager;
     Location location;
     double longitude, latitude;
@@ -67,6 +75,8 @@ public class AddDiaryEntryActivity extends AppCompatActivity implements View.OnC
         unsure = (RadioButton) findViewById(R.id.unsure_button);
         take_photo_button = (Button) findViewById(R.id.picture_button);
         image = (ImageView) findViewById(R.id.imgCapture);
+        //create_entry = (Button) findViewById(R.id.createEntry_button);
+
         //initalizing all textviews//
 
         //getting location
@@ -100,6 +110,7 @@ public class AddDiaryEntryActivity extends AppCompatActivity implements View.OnC
         healthy.setOnClickListener(this);
         unhealthy.setOnClickListener(this);
         unsure.setOnClickListener(this);
+        //create_entry.setOnClickListener(this);
 
         //gets database
         db = new MyDatabase(this);
@@ -151,11 +162,14 @@ public class AddDiaryEntryActivity extends AppCompatActivity implements View.OnC
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data){
+        //check to see if the correct request code was passed
         if(requestCode == Image_Capture_Code){
+            //get bitmap image and set it as the image for the imageView
             Bitmap bp = (Bitmap) data.getExtras().get("data");
             image.setImageBitmap(bp);
             temp = bp;
         } else if(resultCode == RESULT_CANCELED){
+            //do not set image if the incorrect request code was passed
             Toast.makeText(this, "Cancelled", Toast.LENGTH_LONG).show();
         }
     }
@@ -167,6 +181,14 @@ public class AddDiaryEntryActivity extends AppCompatActivity implements View.OnC
         mapsTitle = name; //gets the title of the name to pass to the marker
         String type = description.getText().toString();
         Toast.makeText(this, name + type, Toast.LENGTH_SHORT).show();
+        //check to see if any of the fields of the diary entry were not entered
+        if(status == "nothing" || temp == null || name.length() == 0 || type.length() == 0){
+            //if any of the fields were not entered, display a toast message to notify the user
+            Toast.makeText(this, "Please enter all fields to make an entry", Toast.LENGTH_LONG).show();
+        }  else {
+            long id = db.insertData(name, type, status, temp); //inserts data to database and retrieves the id
+
+            if(id < 0){ //if the id is smaller than zero, the data was not stored
 
         Long systemTime = System.currentTimeMillis();//gets system milliseconds
         Date currentDate = new Date(systemTime); //turns milliseconds into the date
@@ -180,7 +202,7 @@ public class AddDiaryEntryActivity extends AppCompatActivity implements View.OnC
             Toast.makeText(this, "fail", Toast.LENGTH_SHORT).show();
         } else{ //else the data was stored
             Toast.makeText(this, "success" + " " + name + " " + type, Toast.LENGTH_SHORT).show();
-            //set the boxes back to false
+            //set the boxes back to false so they can be cleared after an entry was made
             healthy.setChecked(false);
             unhealthy.setChecked(false);
             unsure.setChecked(false);
@@ -190,6 +212,7 @@ public class AddDiaryEntryActivity extends AppCompatActivity implements View.OnC
         title.setText("");
         description.setText("");
         status = "";
+    }
     }
 
     //when button is clicked, go to the diaryactivity to see the results in recyclerview

@@ -20,13 +20,16 @@ import com.github.mikephil.charting.utils.ColorTemplate;
 import java.util.ArrayList;
 
 public class GraphActivity extends AppCompatActivity {
+    //declare the bar chart variables
     BarChart barChart;
     BarData barData;
     BarDataSet barDataSet;
     ArrayList barEntries;
 
+    //variable to check shared preferences
     public static final int DEFAULT = 0;
 
+    //variables for counting the number of food from all categories
     int numHealthy;
     int numUnhealthy;
     int numUnsure;
@@ -36,28 +39,35 @@ public class GraphActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_graph);
 
+        //get data from shared preferences regarding the category
         SharedPreferences sharedPrefs = getSharedPreferences("MyData", Context.MODE_PRIVATE);
 
+        //get information about how much healthy, unhealthy and unsure food the user ate
         numHealthy = sharedPrefs.getInt("Healthy", DEFAULT);
         numUnhealthy = sharedPrefs.getInt("Unhealthy", DEFAULT);
         numUnsure = sharedPrefs.getInt("Unsure", DEFAULT);
 
+        //link barchart to XML file
         barChart = findViewById(R.id.BarChart);
+        //call getEntries function to get entries number
         getEntries();
+
+        //set the label of the chart
         barDataSet = new BarDataSet(barEntries, "");
         barData = new BarData(barDataSet);
         barChart.setData(barData);
+        //set colours of the char
         barDataSet.setColors(ColorTemplate.JOYFUL_COLORS);
-        barDataSet.setValueTextColor(Color.BLACK);
-        barDataSet.setValueTextSize(18f);
+        barDataSet.setValueTextColor(Color.BLACK); //set text colour
+        barDataSet.setValueTextSize(18f); //set text sie
     }
     private void getEntries() {
         barEntries = new ArrayList<>();
-        //healthy
+        //healthy food based on number in shared preferences
         barEntries.add(new BarEntry(2f, numHealthy));
-        //unhealthy
+        //unhealthy food based on number in shared preferences
         barEntries.add(new BarEntry(4f, numUnhealthy));
-        //unsure
+        //unsure food based on number in shared preferences
         barEntries.add(new BarEntry(6f, numUnsure));
     }
 }
