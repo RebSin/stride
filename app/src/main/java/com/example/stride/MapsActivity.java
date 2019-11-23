@@ -381,4 +381,13 @@ https://stackoverflow.com/questions/31161944/how-to-delete-a-single-row-in-andro
 
 https://stackoverflow.com/questions/2115758/how-do-i-display-an-alert-dialog-on-android
 
+https://developer.android.com/guide/topics/media/camera
+https://androidkennel.org/android-camera-access-tutorial/
+
+https://www.tutorialspoint.com/android/android_camera.htm
+https://abhiandroid.com/programming/camera
+https://stackoverflow.com/questions/4715044/android-how-to-convert-whole-imageview-to-bitmap
+https://stackoverflow.com/questions/9357668/how-to-store-image-in-sqlite-database
+
+https://medium.com/@karthikganiga007/create-barchart-in-android-studio-14943339a211
 * */
