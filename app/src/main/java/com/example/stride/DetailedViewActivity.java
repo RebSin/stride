@@ -23,7 +23,14 @@ import org.w3c.dom.Text;
 
 import java.util.Date;
 
-public class DetailedViewActivity extends AppCompatActivity {
+public class DetailedViewActivity extends AppCompatActivity implements View.OnClickListener{
+    //initialize navigation buttons
+    public Button goHome;
+    public Button goDiary;
+    public Button goGraph;
+    public Button goStats;
+
+    //initialie textViews for the diary entry
     TextView title;
     TextView description;
     TextView status;
@@ -46,6 +53,18 @@ public class DetailedViewActivity extends AppCompatActivity {
         deleteEntry = (Button) findViewById(R.id.deleteentry);
         detailTime = (TextView) findViewById(R.id.detail_timestamp);
         detailLoc = (TextView) findViewById(R.id.detail_location);
+
+        //link navigation buttons to XML
+        goHome = (Button) findViewById(R.id.nav_home);
+        goDiary = (Button) findViewById(R.id.nav_diary);
+        goGraph = (Button) findViewById(R.id.nav_graph);
+        goStats = (Button) findViewById(R.id.nav_stats);
+
+        //set listeners for the navgiation
+        goHome.setOnClickListener(this);
+        goDiary.setOnClickListener(this);
+        goGraph.setOnClickListener(this);
+        goStats.setOnClickListener(this);
 
         //gets shared preferences. long and lat are retrieved from preferences
         SharedPreferences sharedPrefs = getSharedPreferences("MyData", Context.MODE_PRIVATE);
@@ -102,5 +121,29 @@ public class DetailedViewActivity extends AppCompatActivity {
         byte[] decodedByte = Base64.decode(input, 0);
         return BitmapFactory
                 .decodeByteArray(decodedByte, 0, decodedByte.length);
+    }
+
+    @Override
+    public void onClick(View view) {
+        //go to maps activity if home button is clicked
+        if(view.getId() == R.id.nav_home){
+            Intent intent = new Intent(view.getContext(), MapsActivity.class);
+            startActivity(intent);
+        }
+        //go to filter diary activity if diary button is clicked
+        if(view.getId() == R.id.nav_diary){
+            Intent intent = new Intent(view.getContext(), FilterDiaryBySearchActivity.class);
+            startActivity(intent);
+        }
+        //go to graph activity if graph button is clicked
+        if(view.getId() == R.id.nav_graph){
+            Intent intent = new Intent(view.getContext(), GraphActivity.class);
+            startActivity(intent);
+        }
+        //go to stats activity if stats button is clicked
+        if(view.getId() == R.id.nav_stats){
+            Intent intent = new Intent(view.getContext(), StatsActivity.class);
+            startActivity(intent);
+        }
     }
 }

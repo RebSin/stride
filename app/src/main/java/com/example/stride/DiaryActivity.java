@@ -29,6 +29,12 @@ public class DiaryActivity extends AppCompatActivity implements View.OnClickList
     MyAdapter myAdapter;
     private RecyclerView.LayoutManager mLayoutManager;
 
+    //initialize navigation buttons
+    public Button goHome;
+    public Button goDiary;
+    public Button goGraph;
+    public Button goStats;
+
     //set a default to check for the shared preferences
     public static final String DEFAULT_ALT = "not available";
 
@@ -50,6 +56,18 @@ public class DiaryActivity extends AppCompatActivity implements View.OnClickList
         myRecycler.setLayoutManager(mLayoutManager);
         addEntryButton.setOnClickListener(this);
         context = this;
+
+        //link navigation buttons to XML
+        goHome = (Button) findViewById(R.id.nav_home);
+        goDiary = (Button) findViewById(R.id.nav_diary);
+        goGraph = (Button) findViewById(R.id.nav_graph);
+        goStats = (Button) findViewById(R.id.nav_stats);
+
+        //set listeners for the navgiation
+        goHome.setOnClickListener(this);
+        goDiary.setOnClickListener(this);
+        goGraph.setOnClickListener(this);
+        goStats.setOnClickListener(this);
 
         //declare new db, helper and cursor to get results from the db
         db = new MyDatabase(this);
@@ -145,6 +163,26 @@ public class DiaryActivity extends AppCompatActivity implements View.OnClickList
 
     @Override
     public void onClick(View view) {
+        //go to maps activity if home button is clicked
+        if(view.getId() == R.id.nav_home){
+            Intent intent = new Intent(view.getContext(), MapsActivity.class);
+            startActivity(intent);
+        }
+        //go to filter diary activity if diary button is clicked
+        if(view.getId() == R.id.nav_diary){
+            Intent intent = new Intent(view.getContext(), FilterDiaryBySearchActivity.class);
+            startActivity(intent);
+        }
+        //go to graph activity if graph button is clicked
+        if(view.getId() == R.id.nav_graph){
+            Intent intent = new Intent(view.getContext(), GraphActivity.class);
+            startActivity(intent);
+        }
+        //go to stats activity if stats button is clicked
+        if(view.getId() == R.id.nav_stats){
+            Intent intent = new Intent(view.getContext(), StatsActivity.class);
+            startActivity(intent);
+        }
         //if the user clicks the add entry button, then start the addDiaryEntryActivity where they can create a diary entry
         if(view.getId() == R.id.add_entry_button){
             oneWeekCountdown();

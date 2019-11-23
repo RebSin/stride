@@ -20,6 +20,12 @@ public class FilterDiaryBySearchActivity extends AppCompatActivity implements Vi
     RadioButton unsure_button;
     RadioButton all_button;
 
+    //initialize navigation buttons
+    public Button goHome;
+    public Button goDiary;
+    public Button goGraph;
+    public Button goStats;
+
     //used to make sure the user selects a filter
     String clicked_filter = "nothing";
 
@@ -41,10 +47,42 @@ public class FilterDiaryBySearchActivity extends AppCompatActivity implements Vi
         unhealthy_button.setOnClickListener(this);
         unsure_button.setOnClickListener(this);
         all_button.setOnClickListener(this);
+
+        //link navigation buttons to XML
+        goHome = (Button) findViewById(R.id.nav_home);
+        goDiary = (Button) findViewById(R.id.nav_diary);
+        goGraph = (Button) findViewById(R.id.nav_graph);
+        goStats = (Button) findViewById(R.id.nav_stats);
+
+        //set listeners for the navgiation
+        goHome.setOnClickListener(this);
+        goDiary.setOnClickListener(this);
+        goGraph.setOnClickListener(this);
+        goStats.setOnClickListener(this);
     }
 
     @Override
     public void onClick(View view) {
+        //go to maps activity if home button is clicked
+        if(view.getId() == R.id.nav_home){
+            Intent intent = new Intent(view.getContext(), MapsActivity.class);
+            startActivity(intent);
+        }
+        //go to filter diary activity if diary button is clicked
+        if(view.getId() == R.id.nav_diary){
+            Intent intent = new Intent(view.getContext(), FilterDiaryBySearchActivity.class);
+            startActivity(intent);
+        }
+        //go to graph activity if graph button is clicked
+        if(view.getId() == R.id.nav_graph){
+            Intent intent = new Intent(view.getContext(), GraphActivity.class);
+            startActivity(intent);
+        }
+        //go to stats activity if stats button is clicked
+        if(view.getId() == R.id.nav_stats){
+            Intent intent = new Intent(view.getContext(), StatsActivity.class);
+            startActivity(intent);
+        }
         //if the id matches the healthy filter, then the user wants to filter by healthy food
         if(view.getId() == R.id.healthy_filter_button){
             clicked_filter = "healthy_filter";
