@@ -47,8 +47,6 @@ public class MapsActivity extends FragmentActivity implements GoogleMap.OnMarker
     private Marker mBrisbane;
     private static GoogleMap mMap;
     public Button searchButton;
-    public Button diaryButton;
-    public Button graphButton;
     public EditText searchMe;
     private SensorManager sensorManager;
     public EditText newGoal;
@@ -67,8 +65,6 @@ public class MapsActivity extends FragmentActivity implements GoogleMap.OnMarker
 
         context = this;
         searchButton = (Button) findViewById(R.id.search_button);
-        diaryButton = (Button) findViewById(R.id.diary_button);
-        graphButton = (Button) findViewById(R.id.graph_button);
         searchMe = (EditText) findViewById(R.id.searchEditText);
         newGoal = (EditText) findViewById(R.id.foodGoal);
         saveGoal = (Button) findViewById(R.id.saveFoodgoal);
@@ -92,8 +88,6 @@ public class MapsActivity extends FragmentActivity implements GoogleMap.OnMarker
 
         //setting onclick listeners
         searchButton.setOnClickListener(this);
-        diaryButton.setOnClickListener(this);
-        graphButton.setOnClickListener(this);
         saveGoal.setOnClickListener(this);
         mapFragment.getMapAsync(this);
 
@@ -308,18 +302,6 @@ public class MapsActivity extends FragmentActivity implements GoogleMap.OnMarker
             }
 
         }
-        /*if(view.getId() == R.id.diary_button){
-            Intent intent = new Intent(view.getContext(), DiaryActivity.class);
-            startActivity(intent);
-        }*/
-        if(view.getId() == R.id.diary_button){
-            Intent intent = new Intent(view.getContext(), FilterDiaryBySearchActivity.class);
-            startActivity(intent);
-        }
-        if(view.getId() == R.id.graph_button){
-            Intent intent = new Intent(view.getContext(), GraphActivity.class);
-            startActivity(intent);
-        }
         if (view.getId() == R.id.saveFoodgoal){
             if (newGoal.getText().length() > 0) {
                 usersWeeklyFoodGoal = Integer.parseInt(newGoal.getText().toString());
@@ -332,7 +314,6 @@ public class MapsActivity extends FragmentActivity implements GoogleMap.OnMarker
         }
     }
     public int usersWeeklyFoodGoal = 0;
-
 
     float motionValue; //holds current motion value
     float prevMotion; //holds previous motion value

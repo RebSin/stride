@@ -7,65 +7,83 @@
     tools:context=".FilterDiaryBySearchActivity">
 
     <TextView
-        android:id="@+id/filter_message"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Please choose a category to filter by. Choosing a filter will only show you food from the status selected."
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:id="@+id/name2"
+        android:layout_width="142dp"
+        android:layout_height="55dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:gravity="center"
+        android:text="Filter."
+        android:textColor="#3471eb"
+        android:textSize="40dp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="@+id/linearLayout"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.186"
+        app:layout_constraintHorizontal_bias="0.457"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.043" />
+        app:layout_constraintVertical_bias="0.01" />
+
+    <TextView
+        android:id="@+id/filter_message"
+        android:layout_width="349dp"
+        android:layout_height="96dp"
+        android:text="Please choose a category to filter by. Choosing a filter will only show you food from the status selected. A filter must be chosen to continue. If you would like to view all of the entries, select all and press submit"
+        android:textSize="16dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.269" />
 
     <RadioGroup
-        android:layout_width="270dp"
-        android:layout_height="195dp"
+        android:id="@+id/radioGroup"
+        android:layout_width="281dp"
+        android:layout_height="128dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.234"
+        app:layout_constraintHorizontal_bias="0.496"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.274">
+        app:layout_constraintTop_toTopOf="parent">
 
         <RadioButton
             android:id="@+id/healthy_filter_button"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Healthy Food" />
+            android:text="Healthy Food"
+            android:textColor="#3471eb"
+            android:textStyle="bold"/>
 
         <RadioButton
             android:id="@+id/unhealthy_filter_button"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Unhealthy Food" />
+            android:text="Unhealthy Food"
+            android:textColor="#3471eb"
+            android:textStyle="bold"/>
 
         <RadioButton
             android:id="@+id/unsure_filter_button"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Unsure Food" />
+            android:text="Unsure Food"
+            android:textColor="#3471eb"
+            android:textStyle="bold"/>
 
         <RadioButton
             android:id="@+id/all_filter_button"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Show Diary Entries" />
+            android:text="All Entries"
+            android:textColor="#3471eb"
+            android:textStyle="bold"/>
+
     </RadioGroup>
 
-    <Button
-        android:id="@+id/submit_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Submit"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.95"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.929" />
-
     <LinearLayout
+        android:id="@+id/linearLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
@@ -76,35 +94,48 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="HOME"
             android:background="#3471eb"
-            android:textColor="#ffffff"/>
+            android:text="HOME"
+            android:textColor="#ffffff" />
 
         <Button
             android:id="@+id/nav_diary"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="DIARY"
             android:background="#3471eb"
-            android:textColor="#ffffff"/>
+            android:text="DIARY"
+            android:textColor="#ffffff" />
 
         <Button
             android:id="@+id/nav_graph"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="GRAPH"
             android:background="#3471eb"
-            android:textColor="#ffffff"/>
+            android:text="GRAPH"
+            android:textColor="#ffffff" />
 
         <Button
             android:id="@+id/nav_stats"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="STATS"
             android:background="#3471eb"
-            android:textColor="#ffffff"/>
+            android:text="STATS"
+            android:textColor="#ffffff" />
     </LinearLayout>
+
+    <Button
+        android:id="@+id/submit_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="540dp"
+        android:backgroundTint="#3471eb"
+        android:text="Submit"
+        android:textColor="#ffffff"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.95"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -17,7 +17,10 @@
         android:id="@+id/search_button"
         android:layout_width="118dp"
         android:layout_height="wrap_content"
-        android:text="Search" />
+        android:backgroundTint="#3471eb"
+        android:text="Search"
+        android:textColor="#ffffff"
+        android:layout_gravity="right"/>
 
     <EditText
         android:id="@+id/foodGoal"
@@ -31,7 +34,10 @@
         android:id="@+id/saveFoodgoal"
         android:layout_width="124dp"
         android:layout_height="wrap_content"
-        android:text="Save new goal" />
+        android:text="Save new goal"
+        android:backgroundTint="#3471eb"
+        android:textColor="#ffffff"
+        android:layout_gravity="right"/>
 
 
     <fragment xmlns:tools="http://schemas.android.com/tools"
@@ -46,21 +52,7 @@
         android:id="@+id/textView2"
         android:layout_width="wrap_content"
         android:layout_height="0dp"
-        android:layout_weight="1"
-        android:text="TextView" />
-
-    <Button
-        android:id="@+id/diary_button"
-        android:layout_width="124dp"
-        android:layout_height="wrap_content"
-        android:text="Go to Diary" />
-
-    <Button
-        android:id="@+id/graph_button"
-        android:layout_width="135dp"
-        android:layout_height="wrap_content"
-        android:layout_gravity="right"
-        android:text="View Graph" />
+        android:layout_weight="1" />
 
     <LinearLayout
         android:layout_width="match_parent"
