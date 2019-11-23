@@ -10,22 +10,68 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/graph_button"
+        android:layout_marginBottom="0dp"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toBottomOf="parent">
+
+        <Button
+            android:id="@+id/nav_home"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="#3471eb"
+            android:text="HOME"
+            android:textColor="#ffffff" />
+
+        <Button
+            android:id="@+id/nav_diary"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="#3471eb"
+            android:text="DIARY"
+            android:textColor="#ffffff" />
+
+        <Button
+            android:id="@+id/nav_graph"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="#3471eb"
+            android:text="GRAPH"
+            android:textColor="#ffffff" />
+
+        <Button
+            android:id="@+id/nav_stats"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="#3471eb"
+            android:text="STATS"
+            android:textColor="#ffffff" />
+    </LinearLayout>
+
     <Button
         android:id="@+id/add_entry_button"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="36dp"
         android:layout_alignParentStart="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
         android:layout_alignParentEnd="true"
         android:layout_alignParentRight="true"
         android:layout_alignParentBottom="true"
-        android:layout_marginStart="268dp"
-        android:layout_marginLeft="268dp"
-        android:layout_marginTop="298dp"
-        android:layout_marginEnd="-2dp"
-        android:layout_marginRight="-2dp"
-        android:layout_marginBottom="-2dp"
+        android:layout_marginStart="279dp"
+        android:layout_marginLeft="279dp"
+        android:layout_marginTop="645dp"
+        android:layout_marginEnd="-1dp"
+        android:layout_marginRight="-1dp"
+        android:layout_marginBottom="50dp"
         android:text="Add New Entry" />
-
 </RelativeLayout>
