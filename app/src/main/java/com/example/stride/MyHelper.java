@@ -10,6 +10,7 @@ public class MyHelper extends SQLiteOpenHelper {
 
     private Context context;
 
+    //create a string which is for creating a db table
     private static final String CREATE_TABLE =
             "CREATE TABLE "+
                     Constants.TABLE_NAME + " (" +
@@ -17,9 +18,10 @@ public class MyHelper extends SQLiteOpenHelper {
                     Constants.NAME + " TEXT, " +
                     Constants.TYPE + " TEXT, " +
                     Constants.THE_STATUS + " TEXT, " +
-                    Constants.IMAGE + " BLOB, " +
-                    Constants.DATE + " TEXT);" ; //use blob to store image in database
+                    Constants.IMAGE + " BLOB, " + //use blob to store image in database
+                    Constants.DATE + " TEXT);" ;
 
+    //create a string for the drop table command
     private static final String DROP_TABLE = "DROP TABLE IF EXISTS " + Constants.TABLE_NAME;
 
     public MyHelper(Context context){
@@ -30,9 +32,11 @@ public class MyHelper extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase db) {
         try {
+            //execute the creating a table sql statements
             db.execSQL(CREATE_TABLE);
             Toast.makeText(context, "onCreate() called", Toast.LENGTH_LONG).show();
         } catch (SQLException e) {
+            //throw exception if the db was not created successfully
             Toast.makeText(context, "exception onCreate() db", Toast.LENGTH_LONG).show();
         }
     }
@@ -40,10 +44,12 @@ public class MyHelper extends SQLiteOpenHelper {
     @Override
     public void onUpgrade(SQLiteDatabase db, int i, int i1) {
         try {
+            //execute the drop table sql statements
             db.execSQL(DROP_TABLE);
             onCreate(db);
             Toast.makeText(context, "onUpgrade called", Toast.LENGTH_LONG).show();
         } catch (SQLException e) {
+            //throw exception if the db table was not successfully dropped
             Toast.makeText(context, "exception onUpgrade() db", Toast.LENGTH_LONG).show();
         }
     }

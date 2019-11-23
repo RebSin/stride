@@ -20,6 +20,7 @@ public class RegisterActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
+        //link the username and password to the XML
         usernameEditText = (EditText)findViewById(R.id.editTextUsername);
         passwordEditText = (EditText)findViewById(R.id.editTextPassword);
 
@@ -39,11 +40,15 @@ public class RegisterActivity extends Activity {
         //saved data in sharedpref
         SharedPreferences sharedPrefs = getSharedPreferences("MyData", Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPrefs.edit();
+        //put the username and password into shared preferences
         editor.putString("username", usernameEditText.getText().toString());
         editor.putString("password", passwordEditText.getText().toString());
         editor.commit();
 
+        //add a toast message to tell the user their account has successfully been made
         Toast.makeText(this, "Account Made", Toast.LENGTH_LONG).show();
+
+        //start the login activity through an intent
         Intent intent= new Intent(this, LoginActivity.class);
         startActivity(intent);
     }
