@@ -12,6 +12,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.util.Base64;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -60,6 +61,7 @@ public class DetailedViewActivity extends AppCompatActivity {
         String theDescription = sharedPrefs.getString("description", DEFAULT);
         String theStatus = sharedPrefs.getString("status", DEFAULT);
         String theImage = sharedPrefs.getString("image", DEFAULT);
+        Log.d("detailedviewactivity", "theImage: " + theImage);
 
         //setting the info
         title.setText(theTitle.toString());

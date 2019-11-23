@@ -105,12 +105,14 @@ public class MapsActivity extends FragmentActivity implements GoogleMap.OnMarker
     public static double lastLongitude;
     public static LatLng thisLocHere;
     public static int tagNumber;
+    public static String retrievedId;
 
-    public static void cameraActivatedSaveMarker(boolean photoTaken, String title, double lastLat, double lastLong) { //this is called
+    public static void cameraActivatedSaveMarker(boolean photoTaken, String title, double lastLat, double lastLong, long id) { //this is called
         //if the camera has taken a photo and it takes the photo title
         //it then reads the location of the device, which should be where the photo was taken
         //then it sets a new marker to the map
  //    Log.d("iRanCheck", "CAMERAACTIVATEDSAVEMARKERRAN");
+        retrievedId = String.valueOf(id); //this gets the event id
 
         if (photoTaken) {
             thisLocHere = new LatLng(lastLat + tagNumber, lastLong + tagNumber);
@@ -244,6 +246,7 @@ public class MapsActivity extends FragmentActivity implements GoogleMap.OnMarker
 
             Intent markerLoc = new Intent(this, MarkerClickDetailResults.class); //declares the
             markerLoc.putExtra("Loc_Name", marker.getTitle());
+            markerLoc.putExtra("id", retrievedId);
             startActivity(markerLoc);
         }
         // Return false to indicate that we have not consumed the event and that we wish

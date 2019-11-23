@@ -117,11 +117,11 @@ public class AddDiaryEntryActivity extends AppCompatActivity implements View.OnC
        longitude = location.getLongitude();
        latitude = location.getLatitude();
        if (newDiaryEntryAdded) { //if a new diary entry has been added, then add a new marker
-           MapsActivity.cameraActivatedSaveMarker(true, mapsTitle, latitude, longitude);
+           MapsActivity.cameraActivatedSaveMarker(true, mapsTitle, latitude, longitude, thisId);
            newDiaryEntryAdded = false; //set boolean to false so that it only adds the marker once
        }
 
-    Log.d("addnewdiaryentry", "long: " + longitude + " lat: " +latitude);
+   // Log.d("addnewdiaryentry", "long: " + longitude + " lat: " +latitude);
     }
 
     @Override
@@ -167,11 +167,10 @@ public class AddDiaryEntryActivity extends AppCompatActivity implements View.OnC
     }
     String mapsTitle;
     boolean newDiaryEntryAdded;
-
+    Long thisId; //this holds the entry id
     public void addDiaryEntry(View view){
         String name = title.getText().toString();
         mapsTitle = name; //gets the title of the name to pass to the marker
-        newDiaryEntryAdded = true; //boolean that allows the marker to be created
         String type = description.getText().toString();
         Toast.makeText(this, name + type, Toast.LENGTH_SHORT).show();
         //if (temp == null || status == "" || type == null || name == null){
