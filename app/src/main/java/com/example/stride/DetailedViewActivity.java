@@ -47,11 +47,6 @@ public class DetailedViewActivity extends AppCompatActivity {
         detailTime = (TextView) findViewById(R.id.detail_timestamp);
         detailLoc = (TextView) findViewById(R.id.detail_location);
 
-        Long systemTime = System.currentTimeMillis();//gets system milliseconds
-        Date currentDate = new Date(systemTime); //turns milliseconds into the date
-        String theDate = currentDate.toString(); //sets the date to a string
-//        detailTime.setText(theDate); //sets detailed date and time
-
         //gets shared preferences. long and lat are retrieved from preferences
         SharedPreferences sharedPrefs = getSharedPreferences("MyData", Context.MODE_PRIVATE);
         Float latitude = sharedPrefs.getFloat("latitude", (float) -33.8523341);
@@ -64,10 +59,6 @@ public class DetailedViewActivity extends AppCompatActivity {
         String theDescription = sharedPrefs.getString("description", DEFAULT);
         String theStatus = sharedPrefs.getString("status", DEFAULT);
         String theImage = sharedPrefs.getString("image", DEFAULT);
-        String thDate = sharedPrefs.getString("date", DEFAULT);
-        detailTime.setText(thDate); //sets detailed date and time
-        Log.d("detailedviewactivity", "theImage: " + theImage);
-
         //setting the info
         title.setText(theTitle.toString());
         description.setText(theDescription.toString());
@@ -100,6 +91,10 @@ public class DetailedViewActivity extends AppCompatActivity {
             }
         });
         db = new MyDatabase(this);
+        String idInString = db.getSelectedID(theTitle);//get info from the database
+        Long id = Long.valueOf(idInString); //turn the string into a long
+        String date = db.getSelectedDate(id); //get the date from the database using the id
+        detailTime.setText(date); //sets detailed date and time
     }
 
 

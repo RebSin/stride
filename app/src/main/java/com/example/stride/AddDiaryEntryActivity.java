@@ -171,6 +171,7 @@ public class AddDiaryEntryActivity extends AppCompatActivity implements View.OnC
         Long systemTime = System.currentTimeMillis();//gets system milliseconds
         Date currentDate = new Date(systemTime); //turns milliseconds into the date
         String theDate = currentDate.toString(); //sets the date to a string
+      //  Log.d("addentry", "the date: " + theDate );
 
         long id = db.insertData(name, type, status, temp, theDate); //inserts data to database and retrieves the id
         thisId = id; //getting the entry id

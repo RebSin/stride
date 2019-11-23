@@ -16,7 +16,7 @@ import android.widget.TextView;
 //after the user clicks on a marker in MapsActivity
 public class MarkerClickDetailResults extends AppCompatActivity {
     MyDatabase db;
-    TextView title, description, status;
+    TextView title, description, status, date;
     ImageView image;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,26 +27,33 @@ public class MarkerClickDetailResults extends AppCompatActivity {
         Intent markerLoc = getIntent(); //get intent
         String locName = markerLoc.getStringExtra("Loc_Name"); //get string name from intent
    //     Log.d("MarkerClickDetailResul", "name: " + locName);
+
+        //retrieve from database
         String diaryId = markerLoc.getStringExtra("id"); //get id of this
         Long thisId = Long.valueOf(diaryId); //parse the id back into a long
         String Type = db.getSelectedType(thisId); //get info from the database
         String Status = db.getSelectedStatus(thisId); //get info from the database
-
+        String Date = db.getSelectedDate(thisId);//get info from the database
         String Image = db.getSelectedImage(thisId);//get info from the database
         Log.d("MarkerClick", "Image: " + Image);
 
+        //initalize and set values
         Bitmap temp = decodeBase64(Image);
         image = (ImageView) findViewById(R.id.detail_image);
         image.setImageBitmap(temp);
 
         title = (TextView) findViewById(R.id.detail_title);
         title.setText(locName);
+
         description = (TextView) findViewById(R.id.detail_description);
         description.setText(Type);
+
         status = (TextView) findViewById(R.id.detail_status);
         status.setText(Status);
+
+        date = (TextView) findViewById(R.id.detail_timestamp);
+        date.setText(Date);
 //        deleteEntry = (Button) findViewById(R.id.deleteentry);
-//        detailTime = (TextView) findViewById(R.id.detail_timestamp);
 //        detailLoc = (TextView) findViewById(R.id.detail_location);
 
     }

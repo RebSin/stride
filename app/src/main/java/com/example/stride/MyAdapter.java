@@ -52,7 +52,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
         holder.titleTextView.setText(results[0]);
         holder.descriptionTextView.setText(results[1]);
         holder.statusTextView.setText(results[2]);
-        holder.imageView.setImageBitmap(getBitmapFromEncodedString(results[3]));
+        holder.imageView.setImageBitmap(getBitmapFromEncodedString(results[4]));
     }
 
 

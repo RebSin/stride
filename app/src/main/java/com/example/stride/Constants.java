@@ -12,5 +12,5 @@ public class Constants { //a list of constant values to use
     public static final String IMAGE = "Image_URL";
     public static final String DATE = "date";
 
-    public static final int DATABASE_VERSION = 4;
+    public static final int DATABASE_VERSION = 5;
 }

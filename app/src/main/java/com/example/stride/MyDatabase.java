@@ -6,6 +6,7 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Bitmap;
 import android.util.Base64;
+import android.util.Log;
 
 import java.io.ByteArrayOutputStream;
 import java.sql.Blob;
@@ -32,6 +33,7 @@ public class MyDatabase {
         contentValues.put(Constants.TYPE, type);
         contentValues.put(Constants.THE_STATUS, the_status);
         contentValues.put(Constants.DATE, date);
+       // Log.d("date", "date: " + date);
         photo = getEncodedString(image);
 
         contentValues.put(Constants.IMAGE, photo);
@@ -49,7 +51,7 @@ public class MyDatabase {
     Cursor getStatusFilteredData (String the_status){
     SQLiteDatabase db = helper.getWritableDatabase();
 
-    String[] columns = {Constants.UID, NAME, Constants.TYPE, Constants.THE_STATUS, Constants.IMAGE};
+    String[] columns = {Constants.UID, NAME, Constants.TYPE, Constants.THE_STATUS, Constants.IMAGE, Constants.DATE};
     //Constants.DATE
     String selection = Constants.THE_STATUS + "='" +the_status+ "'";
     Cursor cursor = db.query(TABLE_NAME, columns, selection, null, null, null, null);
@@ -133,12 +135,33 @@ public class MyDatabase {
         }
         return buffer.toString();
     }
+    public String getSelectedID(String name)
+    {
+        SQLiteDatabase db = helper.getWritableDatabase();
+        String[] columns = {Constants.UID, Constants.NAME, Constants.TYPE, Constants.THE_STATUS, Constants.IMAGE, Constants.DATE};
+        //Constants.DATE
+        String selection = Constants.NAME + "='" +name+ "'";
+        Cursor cursor = db.query(Constants.TABLE_NAME, columns, selection, null, null, null, null);
 
+        StringBuffer buffer = new StringBuffer();
+        while (cursor.moveToNext()) {
+
+            int index0 = cursor.getColumnIndex(Constants.UID);
+            int index1 = cursor.getColumnIndex(Constants.NAME);
+            int index2 = cursor.getColumnIndex(Constants.TYPE);
+            int index3 = cursor.getColumnIndex(Constants.THE_STATUS);
+            int index4 = cursor.getColumnIndex(Constants.IMAGE);
+            int index5 = cursor.getColumnIndex(Constants.DATE);
+            String Status = cursor.getString(index0);
+            buffer.append(Status);
+        }
+        return buffer.toString();
+    }
 
     public String getSelectedImage(Long id)
     {
         SQLiteDatabase db = helper.getWritableDatabase();
-        String[] columns = {Constants.UID, Constants.NAME, Constants.TYPE, Constants.THE_STATUS, Constants.IMAGE};
+        String[] columns = {Constants.UID, Constants.NAME, Constants.TYPE, Constants.THE_STATUS, Constants.IMAGE, Constants.DATE};
 
         String selection = Constants.UID + "='" +id+ "'";
         Cursor cursor = db.query(Constants.TABLE_NAME, columns, selection, null, null, null, null);
