@@ -1,6 +1,7 @@
 package com.example.stride;
 
 import androidx.annotation.RequiresApi;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
@@ -9,6 +10,7 @@ import androidx.fragment.app.FragmentTransaction;
 
 import android.Manifest;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
@@ -41,12 +43,13 @@ public class AddDiaryEntryActivity extends AppCompatActivity implements View.OnC
     RadioButton unhealthy;
     RadioButton unsure;
     Button take_photo_button;
+    //Button create_entry;
     ImageView image;
     Bitmap temp;
     static final int Image_Capture_Code = 1;
 
     MyDatabase db;
-    public String status;
+    public String status = "nothing";
     public int numHealthy = 0;
     public int numUnsure = 0;
     public int numUnhealthy = 0;
@@ -67,6 +70,8 @@ public class AddDiaryEntryActivity extends AppCompatActivity implements View.OnC
         unsure = (RadioButton) findViewById(R.id.unsure_button);
         take_photo_button = (Button) findViewById(R.id.picture_button);
         image = (ImageView) findViewById(R.id.imgCapture);
+        //create_entry = (Button) findViewById(R.id.createEntry_button);
+
         //initalizing all textviews//
 
         //getting location
@@ -100,6 +105,7 @@ public class AddDiaryEntryActivity extends AppCompatActivity implements View.OnC
         healthy.setOnClickListener(this);
         unhealthy.setOnClickListener(this);
         unsure.setOnClickListener(this);
+        //create_entry.setOnClickListener(this);
 
         //gets database
         db = new MyDatabase(this);
@@ -161,14 +167,20 @@ public class AddDiaryEntryActivity extends AppCompatActivity implements View.OnC
     }
     String mapsTitle;
     boolean newDiaryEntryAdded;
+
     public void addDiaryEntry(View view){
         String name = title.getText().toString();
         mapsTitle = name; //gets the title of the name to pass to the marker
         newDiaryEntryAdded = true; //boolean that allows the marker to be created
         String type = description.getText().toString();
         Toast.makeText(this, name + type, Toast.LENGTH_SHORT).show();
-        long id = db.insertData(name, type, status, temp); //inserts data to database and retrieves the id
-        if(id < 0){ //if the id is smaller than zero, the data was not stored
+        //if (temp == null || status == "" || type == null || name == null){
+        if(status == "nothing" || temp == null || name.length() == 0 || type.length() == 0){
+            Toast.makeText(this, "Please enter all fields to make an entry", Toast.LENGTH_LONG).show();
+        }  else {
+            long id = db.insertData(name, type, status, temp); //inserts data to database and retrieves the id
+
+            if(id < 0){ //if the id is smaller than zero, the data was not stored
             Toast.makeText(this, "fail", Toast.LENGTH_SHORT).show();
         } else{ //else the data was stored
             Toast.makeText(this, "success" + " " + name + " " + type, Toast.LENGTH_SHORT).show();
@@ -182,6 +194,7 @@ public class AddDiaryEntryActivity extends AppCompatActivity implements View.OnC
         title.setText("");
         description.setText("");
         status = "";
+    }
     }
 
     //when button is clicked, go to the diaryactivity to see the results in recyclerview
