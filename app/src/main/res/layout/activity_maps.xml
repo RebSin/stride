@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout android:layout_width="match_parent"
+<LinearLayout xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
@@ -60,6 +61,50 @@
         android:layout_height="wrap_content"
         android:layout_gravity="right"
         android:text="View Graph" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toBottomOf="parent">
+
+        <Button
+            android:id="@+id/nav_home"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="HOME"
+            android:background="#3471eb"
+            android:textColor="#ffffff"/>
+
+        <Button
+            android:id="@+id/nav_diary"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="DIARY"
+            android:background="#3471eb"
+            android:textColor="#ffffff"/>
+
+        <Button
+            android:id="@+id/nav_graph"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="GRAPH"
+            android:background="#3471eb"
+            android:textColor="#ffffff"/>
+
+        <Button
+            android:id="@+id/nav_stats"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="STATS"
+            android:background="#3471eb"
+            android:textColor="#ffffff"/>
+    </LinearLayout>
+
     <!--<menu xmlns:android= "http://schemas.android.com/apk/res/android"-->
     <!--xmlns:app="http://schemas.android.com/apk/res-auto">-->
 <!--<item android:id="@+id/currentLocation"-->
@@ -75,6 +120,5 @@
     <!--android:layout_width="wrap_content"-->
     <!--android:layout_height="wrap_content"-->
     <!--tools:context=".MapsActivity" />-->
-
 
 </LinearLayout>

@@ -20,6 +20,7 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -36,12 +37,12 @@ import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import static com.example.stride.GraphActivity.DEFAULT;
 
 //this displays our main homepage with the map
-public class MapsActivity extends FragmentActivity implements GoogleMap.OnMarkerClickListener, View.OnClickListener,
-        OnMapReadyCallback, SensorEventListener {
+public class MapsActivity extends FragmentActivity implements GoogleMap.OnMarkerClickListener, View.OnClickListener, OnMapReadyCallback, SensorEventListener {
     private static final LatLng BRISBANE = new LatLng(-27.47093, 153.0235);
     private Marker mBrisbane;
     private static GoogleMap mMap;
@@ -50,14 +51,20 @@ public class MapsActivity extends FragmentActivity implements GoogleMap.OnMarker
     public Button graphButton;
     public EditText searchMe;
     private SensorManager sensorManager;
-    public int healthyCount = 0;
     public EditText newGoal;
     public Button saveGoal;
+
+    //initialize navigation buttons
+    public Button goHome;
+    public Button goDiary;
+    public Button goGraph;
+    public Button goStats;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_maps);
+
         context = this;
         searchButton = (Button) findViewById(R.id.search_button);
         diaryButton = (Button) findViewById(R.id.diary_button);
@@ -65,15 +72,31 @@ public class MapsActivity extends FragmentActivity implements GoogleMap.OnMarker
         searchMe = (EditText) findViewById(R.id.searchEditText);
         newGoal = (EditText) findViewById(R.id.foodGoal);
         saveGoal = (Button) findViewById(R.id.saveFoodgoal);
+
+        //link navigation buttons to XML
+        goHome = (Button) findViewById(R.id.nav_home);
+        goDiary = (Button) findViewById(R.id.nav_diary);
+        goGraph = (Button) findViewById(R.id.nav_graph);
+        goStats = (Button) findViewById(R.id.nav_stats);
+
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
         mFusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this);
-        searchButton.setOnClickListener(this); //setting onclick listeners
+
+        //set listeners for the navgiation
+        goHome.setOnClickListener(this);
+        goDiary.setOnClickListener(this);
+        goGraph.setOnClickListener(this);
+        goStats.setOnClickListener(this);
+
+        //setting onclick listeners
+        searchButton.setOnClickListener(this);
         diaryButton.setOnClickListener(this);
         graphButton.setOnClickListener(this);
         saveGoal.setOnClickListener(this);
         mapFragment.getMapAsync(this);
+
         sensorManager = (SensorManager) getSystemService(SENSOR_SERVICE); //accessing sensors for accelerometer
         sensorManager.registerListener(this, sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER), SensorManager.SENSOR_DELAY_NORMAL);
     }
@@ -256,6 +279,26 @@ public class MapsActivity extends FragmentActivity implements GoogleMap.OnMarker
     }
     @Override
     public void onClick(View view) {
+        //go to maps activity if home button is clicked
+        if(view.getId() == R.id.nav_home){
+            Intent intent = new Intent(view.getContext(), MapsActivity.class);
+            startActivity(intent);
+        }
+        //go to filter diary activity if diary button is clicked
+        if(view.getId() == R.id.nav_diary){
+            Intent intent = new Intent(view.getContext(), FilterDiaryBySearchActivity.class);
+            startActivity(intent);
+        }
+        //go to graph activity if graph button is clicked
+        if(view.getId() == R.id.nav_graph){
+            Intent intent = new Intent(view.getContext(), GraphActivity.class);
+            startActivity(intent);
+        }
+        //go to stats activity if stats button is clicked
+        if(view.getId() == R.id.nav_stats){
+            Intent intent = new Intent(view.getContext(), StatsActivity.class);
+            startActivity(intent);
+        }
         if(view.getId() == R.id.search_button) { //this checks if search button pressed
             if (searchMe.getText().toString().length() > 0){ //this checks if there was something typed
                 String word_entered = searchMe.getText().toString(); //this gets what was typed

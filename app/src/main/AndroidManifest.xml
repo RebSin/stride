@@ -21,7 +21,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".FilterDiaryBySearchActivity"></activity>
+        <activity android:name=".StatsActivity"></activity>
+        <activity android:name=".FilterDiaryBySearchActivity" />
         <activity android:name=".GraphActivity" />
         <activity android:name=".DetailedViewActivity" />
         <activity android:name=".AddDiaryEntryActivity" />
