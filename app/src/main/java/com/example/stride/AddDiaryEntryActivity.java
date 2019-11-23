@@ -176,43 +176,40 @@ public class AddDiaryEntryActivity extends AppCompatActivity implements View.OnC
     String mapsTitle;
     boolean newDiaryEntryAdded;
     Long thisId; //this holds the entry id
-    public void addDiaryEntry(View view){
+    public void addDiaryEntry(View view) {
         String name = title.getText().toString();
         mapsTitle = name; //gets the title of the name to pass to the marker
         String type = description.getText().toString();
         Toast.makeText(this, name + type, Toast.LENGTH_SHORT).show();
         //check to see if any of the fields of the diary entry were not entered
-        if(status == "nothing" || temp == null || name.length() == 0 || type.length() == 0){
+        if (status == "nothing" || temp == null || name.length() == 0 || type.length() == 0) {
             //if any of the fields were not entered, display a toast message to notify the user
             Toast.makeText(this, "Please enter all fields to make an entry", Toast.LENGTH_LONG).show();
-        }  else {
-            long id = db.insertData(name, type, status, temp); //inserts data to database and retrieves the id
+        } else {
+            Long systemTime = System.currentTimeMillis();//gets system milliseconds
+            Date currentDate = new Date(systemTime); //turns milliseconds into the date
+            String theDate = currentDate.toString(); //sets the date to a string
+            //  Log.d("addentry", "the date: " + theDate );
 
-            if(id < 0){ //if the id is smaller than zero, the data was not stored
+            long id = db.insertData(name, type, status, temp, theDate); //inserts data to database and retrieves the id
+            thisId = id; //getting the entry id
+            newDiaryEntryAdded = true; //boolean that allows the marker to be created
 
-        Long systemTime = System.currentTimeMillis();//gets system milliseconds
-        Date currentDate = new Date(systemTime); //turns milliseconds into the date
-        String theDate = currentDate.toString(); //sets the date to a string
-      //  Log.d("addentry", "the date: " + theDate );
-
-        long id = db.insertData(name, type, status, temp, theDate); //inserts data to database and retrieves the id
-        thisId = id; //getting the entry id
-        newDiaryEntryAdded = true; //boolean that allows the marker to be created
-        if(id < 0){ //if the id is smaller than zero, the data was not stored
-            Toast.makeText(this, "fail", Toast.LENGTH_SHORT).show();
-        } else{ //else the data was stored
-            Toast.makeText(this, "success" + " " + name + " " + type, Toast.LENGTH_SHORT).show();
-            //set the boxes back to false so they can be cleared after an entry was made
-            healthy.setChecked(false);
-            unhealthy.setChecked(false);
-            unsure.setChecked(false);
-            image.setImageResource(android.R.color.transparent); //clear the image
-        }
-        //clear the input boxes after the button is pressed
-        title.setText("");
-        description.setText("");
-        status = "";
-    }
+                if (id < 0) { //if the id is smaller than zero, the data was not stored
+                    Toast.makeText(this, "fail", Toast.LENGTH_SHORT).show();
+                } else { //else the data was stored
+                    Toast.makeText(this, "success" + " " + name + " " + type, Toast.LENGTH_SHORT).show();
+                    //set the boxes back to false so they can be cleared after an entry was made
+                    healthy.setChecked(false);
+                    unhealthy.setChecked(false);
+                    unsure.setChecked(false);
+                    image.setImageResource(android.R.color.transparent); //clear the image
+                }
+                //clear the input boxes after the button is pressed
+                title.setText("");
+                description.setText("");
+                status = "";
+            }
     }
 
     //when button is clicked, go to the diaryactivity to see the results in recyclerview

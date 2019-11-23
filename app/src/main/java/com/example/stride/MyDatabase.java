@@ -119,28 +119,25 @@ public class MyDatabase {
         return buffer.toString();
     }
 
-    public String getSelectedDate(Long id)
-    {
+    public String getSelectedDate(Long id) {
         SQLiteDatabase db = helper.getWritableDatabase();
         String[] columns = {Constants.UID, Constants.NAME, Constants.TYPE, Constants.THE_STATUS, Constants.IMAGE, Constants.DATE};
         //Constants.DATE
-        String selection = Constants.UID + "='" +id+ "'";
+        String selection = Constants.UID + "='" + id + "'";
         Cursor cursor = db.query(Constants.TABLE_NAME, columns, selection, null, null, null, null);
-
-        while (cursor.moveToNext()) {
         StringBuffer buffer = new StringBuffer();
-
-            String Status = cursor.getString(index5);
+        while (cursor.moveToNext()) {
             int index1 = cursor.getColumnIndex(Constants.NAME);
             int index2 = cursor.getColumnIndex(Constants.TYPE);
             int index3 = cursor.getColumnIndex(Constants.THE_STATUS);
-            int index5 = cursor.getColumnIndex(Constants.DATE);
             int index4 = cursor.getColumnIndex(Constants.IMAGE);
+            int index5 = cursor.getColumnIndex(Constants.DATE);
+            String Status = cursor.getString(index5);
             buffer.append(Status);
         }
         return buffer.toString();
-    public String getSelectedID(String name)
     }
+    public String getSelectedID(String name)
     {
         SQLiteDatabase db = helper.getWritableDatabase();
         String[] columns = {Constants.UID, Constants.NAME, Constants.TYPE, Constants.THE_STATUS, Constants.IMAGE, Constants.DATE};
@@ -200,14 +197,6 @@ public class MyDatabase {
         return outputStream.toByteArray();
     }*/
 
-    public Cursor getStatusFilteredData(String the_status){
-        SQLiteDatabase db = helper.getWritableDatabase();
-
-        String[] columns = {Constants.UID, NAME, Constants.TYPE, Constants.THE_STATUS, Constants.IMAGE};
-        String selection = Constants.THE_STATUS + "='" +the_status+ "'";
-        Cursor cursor = db.query(TABLE_NAME, columns, selection, null, null, null, null);
-        return cursor;
-    }
 
     public Cursor getData(){
         SQLiteDatabase db = helper.getWritableDatabase();
