@@ -5,14 +5,19 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.hardware.Sensor;
+import android.hardware.SensorEvent;
+import android.hardware.SensorEventListener;
+import android.hardware.SensorManager;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import org.w3c.dom.Text;
 
-public class StatsActivity extends AppCompatActivity implements View.OnClickListener{
+public class StatsActivity extends AppCompatActivity implements View.OnClickListener, SensorEventListener {
     //initialize navigation buttons
     public Button goHome;
     public Button goDiary;
@@ -25,6 +30,13 @@ public class StatsActivity extends AppCompatActivity implements View.OnClickList
     public TextView amountUnsure;
     public TextView goal;
     public TextView ifGoalMet;
+    public TextView tv_steps;
+
+    //check whether or not the user is running
+    boolean running = false;
+
+    //initialize sensorManager for step counter
+    SensorManager sensorManager;
 
     //variables for counting the number of food from all categories
     int numHealthy;
@@ -59,6 +71,12 @@ public class StatsActivity extends AppCompatActivity implements View.OnClickList
         goGraph.setOnClickListener(this);
         goStats.setOnClickListener(this);
 
+        //for step counter
+        tv_steps = (TextView) findViewById(R.id.step_number_textView);
+
+        //get sensor manager
+        sensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
+
         //get data from shared preferences regarding the category
         SharedPreferences sharedPrefs = getSharedPreferences("MyData", Context.MODE_PRIVATE);
 
@@ -75,6 +93,7 @@ public class StatsActivity extends AppCompatActivity implements View.OnClickList
         amountUnsure.setText(numUnsure + " Unsure Foods");
         goal.setText("Consming " + theGoal + " Healthy Foods");
 
+        //check to see if the user has met the goal they entered
         if(theGoal < numHealthy){
             ifGoalMet.setText("You have already met your food goal!");
         } else{
@@ -104,5 +123,39 @@ public class StatsActivity extends AppCompatActivity implements View.OnClickList
             Intent intent = new Intent(view.getContext(), StatsActivity.class);
             startActivity(intent);
         }
+    }
+
+    @Override
+    protected void onResume(){
+        super.onResume();
+        running = true;
+        Sensor countSensor = sensorManager.getDefaultSensor(Sensor.TYPE_STEP_COUNTER);
+        if(countSensor != null){
+            //check to see if the sensor is not null before registering it 
+            sensorManager.registerListener(this, countSensor, SensorManager.SENSOR_DELAY_UI);
+        } else{
+            //display toast if sensor is not found
+            Toast.makeText(this, "Sensor is not found!", Toast.LENGTH_LONG).show();
+        }
+    }
+
+    @Override
+    protected void onPause(){
+        //if you unregister the hardware will stop detecting steps so do not do this
+        //sensorManager.unregisterListener(this);
+        super.onPause();
+        running = false;
+    }
+    @Override
+    public void onSensorChanged(SensorEvent sensorEvent) {
+        if(running){
+            //update the steps on the textView if the user is moving
+            tv_steps.setText(String.valueOf(sensorEvent.values[0]));
+        }
+    }
+
+    @Override
+    public void onAccuracyChanged(Sensor sensor, int i) {
+
     }
 }
