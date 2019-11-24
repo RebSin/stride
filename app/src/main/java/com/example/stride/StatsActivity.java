@@ -10,12 +10,14 @@ import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import org.w3c.dom.Text;
+import java.time.DayOfWeek;
+import java.time.LocalDate;
 
 public class StatsActivity extends AppCompatActivity implements View.OnClickListener, SensorEventListener {
     //initialize navigation buttons
@@ -31,6 +33,7 @@ public class StatsActivity extends AppCompatActivity implements View.OnClickList
     public TextView goal;
     public TextView ifGoalMet;
     public TextView tv_steps;
+    public TextView dailySteps;
 
     //check whether or not the user is running
     boolean running = false;
@@ -73,6 +76,7 @@ public class StatsActivity extends AppCompatActivity implements View.OnClickList
 
         //for step counter
         tv_steps = (TextView) findViewById(R.id.step_number_textView);
+        dailySteps = (TextView) findViewById(R.id.dailySteps);
 
         //get sensor manager
         sensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
@@ -99,8 +103,16 @@ public class StatsActivity extends AppCompatActivity implements View.OnClickList
         } else{
             ifGoalMet.setText("You need to consume " + (theGoal-numHealthy) + " more healthy foods");
         }
+        String theDay = sharedPrefs.getString("day", "Sunday"); //this gets the day of the week from shared profs
+        if (!checkTheDay().equals(theDay)) { //if the current day doesn't match the saved day
+            SharedPreferences.Editor editor = sharedPrefs.edit();
+            editor.putString("day", checkTheDay()); //put the current day into shared prefs
+            aDayHasPassed = true; //a day has passed
+        } else {
+            aDayHasPassed = false; //else a day has not passed
+        }
     }
-
+    boolean aDayHasPassed = false; //global var checking if a day has passed
     @Override
     public void onClick(View view) {
         //go to maps activity if home button is clicked
@@ -151,7 +163,25 @@ public class StatsActivity extends AppCompatActivity implements View.OnClickList
         if(running){
             //update the steps on the textView if the user is moving
             tv_steps.setText(String.valueOf(sensorEvent.values[0]));
+            if (aDayHasPassed) {
+                dailySteps.setText("0");
+            } else {
+                dailySteps.setText(String.valueOf(sensorEvent.values[0]));
+            }
         }
+    }
+
+    public String checkTheDay() { //this checks and returns the current day
+        LocalDate date = null;
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
+            date = LocalDate.now(); //the if statements are just checks cause this only
+            //works on a certain build version
+        }
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
+            DayOfWeek theDay = date.getDayOfWeek(); //this is the current day of the week
+            return String.valueOf(theDay); //return the value of the day of the week
+        }
+        return null;
     }
 
     @Override
