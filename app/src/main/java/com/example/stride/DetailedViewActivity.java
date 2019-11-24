@@ -36,6 +36,7 @@ public class DetailedViewActivity extends AppCompatActivity implements View.OnCl
     TextView status;
     ImageView image;
     public static final String DEFAULT = "not available";
+    public static final int DEFAULT_ALT = 0;
     MyDatabase db;
     Button deleteEntry;
     TextView detailTime;
@@ -67,7 +68,7 @@ public class DetailedViewActivity extends AppCompatActivity implements View.OnCl
         goStats.setOnClickListener(this);
 
         //gets shared preferences. long and lat are retrieved from preferences
-        SharedPreferences sharedPrefs = getSharedPreferences("MyData", Context.MODE_PRIVATE);
+        final SharedPreferences sharedPrefs = getSharedPreferences("MyData", Context.MODE_PRIVATE);
         Float latitude = sharedPrefs.getFloat("latitude", (float) -33.8523341);
         Float longitude = sharedPrefs.getFloat("longitude", (float) 151.2106085);
 
@@ -76,8 +77,11 @@ public class DetailedViewActivity extends AppCompatActivity implements View.OnCl
         //retrieving more info from shared pref
         final String theTitle = sharedPrefs.getString("title", DEFAULT);
         String theDescription = sharedPrefs.getString("description", DEFAULT);
-        String theStatus = sharedPrefs.getString("status", DEFAULT);
+        final String theStatus = sharedPrefs.getString("status", DEFAULT);
         String theImage = sharedPrefs.getString("image", DEFAULT);
+        final int amountHealthy = sharedPrefs.getInt("Healthy", DEFAULT_ALT);
+        final int amountUnhealthy = sharedPrefs.getInt("Unhealthy", DEFAULT_ALT);
+        final int amountUnsure = sharedPrefs.getInt("Unsure", DEFAULT_ALT);
         //setting the info
         title.setText(theTitle.toString());
         description.setText(theDescription.toString());
@@ -96,6 +100,18 @@ public class DetailedViewActivity extends AppCompatActivity implements View.OnCl
                         // The dialog is automatically dismissed when a dialog button is clicked.
                         .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int which) {
+                                SharedPreferences.Editor editor = sharedPrefs.edit();
+                                if(theStatus.equals("Healthy")){
+                                    editor.putInt("Healthy", (amountHealthy - 1));
+                                    editor.commit();
+                                }
+                                if(theStatus.equals("Unhealthy")){
+                                    editor.putInt("Unhealthy", (amountUnhealthy - 1));
+                                    editor.commit();
+                                } if(theStatus.equals("Unsure")){
+                                    editor.putInt("Unsure", (amountUnsure - 1));
+                                    editor.commit();
+                                }
                                 // Continue with delete operation
                                 db.removeAllInfo(theTitle);
                                 Intent intent = new Intent(v.getContext(), DiaryActivity.class);//open the diaryactivity

@@ -53,10 +53,8 @@ public class MarkerClickDetailResults extends AppCompatActivity {
 
         date = (TextView) findViewById(R.id.detail_timestamp);
         date.setText(Date);
-//        deleteEntry = (Button) findViewById(R.id.deleteentry);
-//        detailLoc = (TextView) findViewById(R.id.detail_location);
-
     }
+
     public static Bitmap decodeBase64(String input) {
         byte[] decodedByte = Base64.decode(input, 0);
         return BitmapFactory
