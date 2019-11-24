@@ -166,6 +166,18 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
+        android:id="@+id/reach_goal_message2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="376dp"
+        android:text="Daily Step Count:"
+        android:textSize="16dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.063"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
         android:id="@+id/goal_status_textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -179,11 +191,24 @@
         app:layout_constraintTop_toTopOf="@+id/name" />
 
     <TextView
+        android:id="@+id/dailySteps"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="396dp"
+        android:text="TextView"
+        android:textColor="#3471eb"
+        android:textSize="16dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.436"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/name" />
+
+    <TextView
         android:id="@+id/steps_taken"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="272dp"
-        android:text="Steps:"
+        android:text="Weekly Steps:"
         android:textColor="#3471eb"
         android:textSize="16dp"
         app:layout_constraintBottom_toBottomOf="@+id/linearLayout2"
