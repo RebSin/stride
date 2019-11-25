@@ -111,78 +111,115 @@ public class StatsActivity extends AppCompatActivity implements View.OnClickList
             ifGoalMet.setText("You need to consume " + (theGoal-numHealthy) + " more healthy foods");
         }
 
+        //get day from calandar
         Calendar rightNow = Calendar.getInstance();
+        //get day from shared preferences
         int theDay = sharedPrefs.getInt("day", -1);
+        //check to see if it is sunday
         if (rightNow.get(Calendar.DAY_OF_WEEK) == Calendar.SUNDAY){
+            //if it is not sunday, the day has changed
             if(theDay != 1){
+                //put 1 for sunday in shared preferences
                 editor.putInt("day", 1);
                 editor.commit();
+                //states that a day has passed
                 aDayHasPassed = true;
                 day = 1;
+                //if it is, then the day has not changed
             } else{
                 aDayHasPassed = false;
             }
         }
+        //check to see if it is monday
         if (rightNow.get(Calendar.DAY_OF_WEEK) == Calendar.MONDAY){
+            //if it is not monday, a day has passed
             if(theDay != 2){
+                //put 2 for monday in shared preferences
                 editor.putInt("day", 2);
                 editor.commit();
-                Toast.makeText(this, "passed" + theDay + "current" + 2, Toast.LENGTH_LONG).show();
+                //states that a day has passed
                 aDayHasPassed = true;
                 day = 2;
+                //if it is, then the day has not chnaged
             } else{
                 aDayHasPassed = false;
             }
         }
+        //check to see if it is tuesday
         if (rightNow.get(Calendar.DAY_OF_WEEK) == Calendar.TUESDAY){
+            //if it is not tuesday, a day has passed
             if(day != 3){
+                //put 3 for tuesday in shared preferences
+                editor.putInt("day", 3);
+                editor.commit();
+                //states that a day has passed
                 aDayHasPassed = true;
                 day = 3;
+                //if it is, then the day has not changed
             } else{
                 aDayHasPassed = false;
             }
         }
+        //check to see if it is wednesday
         if (rightNow.get(Calendar.DAY_OF_WEEK) == Calendar.WEDNESDAY){
+            //if it is not wednesday, a day has passed
             if(day != 4){
+                //put 4 for wednesday in shared preferences
+                editor.putInt("day", 4);
+                editor.commit();
+                //states that a day has passed
                 aDayHasPassed = true;
                 day = 4;
+                //if it is, then the day has not changed
             } else{
                 aDayHasPassed = false;
             }
         }
+        //check to see if it is thursday
         if (rightNow.get(Calendar.DAY_OF_WEEK) == Calendar.THURSDAY){
+            //if it is not thursday, a day has passed
             if(day != 5){
+                //put 5 for thursday in shared preferences
+                editor.putInt("day", 5);
+                editor.commit();
+                //states that a day has passed
                 aDayHasPassed = true;
                 day = 5;
+                //if it is, then the day has not changed
             } else{
                 aDayHasPassed = false;
             }
         }
+        //check to see if it is friday
         if (rightNow.get(Calendar.DAY_OF_WEEK) == Calendar.FRIDAY){
+            //if it is not friday, a day has passed
             if(day != 6){
+                //put 6 for friday in shared preferences
+                editor.putInt("day", 6);
+                editor.commit();
+                //states that a day has passed
                 aDayHasPassed = true;
                 day = 6;
+                //if it is, then the day has not changed
             } else{
                 aDayHasPassed = false;
             }
         }
+        //check to see if it is saturday
         if (rightNow.get(Calendar.DAY_OF_WEEK) == Calendar.SATURDAY){
+            //if it is not saturday, a day has passed
             if(day != 7){
+                //put 7 for saturday in shared preferences
+                editor.putInt("day", 7);
+                editor.commit();
+                //states that a day has passed
                 aDayHasPassed = true;
                 day = 7;
+                //if it is, then the day has not changed
             } else{
                 aDayHasPassed = false;
             }
         }
-
-        /*String theDay = sharedPrefs.getString("day", "nothing"); //this gets the day of the week from shared profs
-        if (!checkTheDay().equals(theDay)) { //if the current day doesn't match the saved day
-            SharedPreferences.Editor editor = sharedPrefs.edit();
-            editor.putString("day", checkTheDay()); //put the current day into shared prefs
-            aDayHasPassed = true; //a day has passed
-        } else {
-            aDayHasPassed = false; //else a day has not passed
-        }*/
     }
 
     @Override
@@ -242,13 +279,16 @@ public class StatsActivity extends AppCompatActivity implements View.OnClickList
             tv_steps.setText(String.valueOf((int) sensorEvent.values[0]));
             if (aDayHasPassed == true) {
                 //have to minus value from itself to get to zero, else it will not reset
-                //have to minus value from itself to get to zero, else it will not reset
                 int val = sharedPrefs.getInt("total_steps", 0);
+                //get the steps to minus from the current steps
                 editor.putInt("minus_steps", val);
+                //set steps to 0
                 dailySteps.setText("0");
                 //Toast.makeText(this, "" + day, Toast.LENGTH_LONG).show();
             } else {
+                //get value to minus by from shared preferences
                 int minus = sharedPrefs.getInt("minus_steps", 0);
+                //set daily steps to total steps minus the total steps from yesterday 
                 int daily_step = (((int) sensorEvent.values[0]) - minus);
                 dailySteps.setText(toString().valueOf(daily_step));
                 //put the number of steps in shared preferences
