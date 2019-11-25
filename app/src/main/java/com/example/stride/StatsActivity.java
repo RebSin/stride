@@ -288,7 +288,7 @@ public class StatsActivity extends AppCompatActivity implements View.OnClickList
             } else {
                 //get value to minus by from shared preferences
                 int minus = sharedPrefs.getInt("minus_steps", 0);
-                //set daily steps to total steps minus the total steps from yesterday 
+                //set daily steps to total steps minus the total steps from yesterday
                 int daily_step = (((int) sensorEvent.values[0]) - minus);
                 dailySteps.setText(toString().valueOf(daily_step));
                 //put the number of steps in shared preferences

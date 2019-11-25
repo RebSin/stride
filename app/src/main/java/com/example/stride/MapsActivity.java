@@ -365,8 +365,8 @@ public class MapsActivity extends FragmentActivity implements GoogleMap.OnMarker
     }
 }
 /*
-*CITATIONS:
-* https://stackoverflow.com/questions/51793345/android-material-and-appcompat-manifest-merger-failed
+CITATIONS:
+https://stackoverflow.com/questions/51793345/android-material-and-appcompat-manifest-merger-failed
 
 https://stackoverflow.com/questions/26255771/make-google-map-not-full-screen-android-app
 https://developers.google.com/maps/documentation/android-sdk/marker
@@ -390,4 +390,5 @@ https://stackoverflow.com/questions/4715044/android-how-to-convert-whole-imagevi
 https://stackoverflow.com/questions/9357668/how-to-store-image-in-sqlite-database
 
 https://medium.com/@karthikganiga007/create-barchart-in-android-studio-14943339a211
-* */
+https://stackoverflow.com/questions/7389242/how-to-check-day-in-android
+*/
