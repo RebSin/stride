@@ -166,16 +166,17 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/reach_goal_message2"
+        android:id="@+id/dailySteps_message"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="376dp"
-        android:text="Daily Step Count:"
+        android:layout_marginBottom="296dp"
+        android:text="Daily Steps:"
+        android:textColor="#3471eb"
         android:textSize="16dp"
+        app:layout_constraintBottom_toBottomOf="@+id/linearLayout2"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.063"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintHorizontal_bias="0.495"
+        app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
         android:id="@+id/goal_status_textView"
@@ -194,21 +195,21 @@
         android:id="@+id/dailySteps"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="396dp"
         android:text="TextView"
-        android:textColor="#3471eb"
-        android:textSize="16dp"
+        android:textSize="60dp"
+        app:layout_constraintBottom_toBottomOf="@+id/linearLayout2"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.436"
+        app:layout_constraintHorizontal_bias="0.496"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/name" />
+        app:layout_constraintTop_toTopOf="@+id/name"
+        app:layout_constraintVertical_bias="0.684" />
 
     <TextView
         android:id="@+id/steps_taken"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="272dp"
-        android:text="Weekly Steps:"
+        android:layout_marginBottom="164dp"
+        android:text="Total Steps:"
         android:textColor="#3471eb"
         android:textSize="16dp"
         app:layout_constraintBottom_toBottomOf="@+id/linearLayout2"
@@ -227,6 +228,6 @@
         app:layout_constraintHorizontal_bias="0.496"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/name"
-        app:layout_constraintVertical_bias="0.718" />
+        app:layout_constraintVertical_bias="0.883" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

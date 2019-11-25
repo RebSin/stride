@@ -18,6 +18,7 @@ import android.widget.Toast;
 
 import java.time.DayOfWeek;
 import java.time.LocalDate;
+import java.util.Calendar;
 
 public class StatsActivity extends AppCompatActivity implements View.OnClickListener, SensorEventListener {
     //initialize navigation buttons
@@ -46,6 +47,11 @@ public class StatsActivity extends AppCompatActivity implements View.OnClickList
     int numUnhealthy;
     int numUnsure;
     int theGoal;
+
+    //varibale for storing the day of the week
+    int day;
+
+    boolean aDayHasPassed; //global var checking if a day has passed
 
     //variable to check shared preferences
     public static final int DEFAULT = 0;
@@ -83,6 +89,7 @@ public class StatsActivity extends AppCompatActivity implements View.OnClickList
 
         //get data from shared preferences regarding the category
         SharedPreferences sharedPrefs = getSharedPreferences("MyData", Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPrefs.edit();
 
         //get information about how much healthy, unhealthy and unsure food the user ate
         numHealthy = sharedPrefs.getInt("Healthy", DEFAULT);
@@ -103,16 +110,81 @@ public class StatsActivity extends AppCompatActivity implements View.OnClickList
         } else{
             ifGoalMet.setText("You need to consume " + (theGoal-numHealthy) + " more healthy foods");
         }
-        String theDay = sharedPrefs.getString("day", "Sunday"); //this gets the day of the week from shared profs
+
+        Calendar rightNow = Calendar.getInstance();
+        int theDay = sharedPrefs.getInt("day", -1);
+        if (rightNow.get(Calendar.DAY_OF_WEEK) == Calendar.SUNDAY){
+            if(theDay != 1){
+                editor.putInt("day", 1);
+                editor.commit();
+                aDayHasPassed = true;
+                day = 1;
+            } else{
+                aDayHasPassed = false;
+            }
+        }
+        if (rightNow.get(Calendar.DAY_OF_WEEK) == Calendar.MONDAY){
+            if(theDay != 2){
+                editor.putInt("day", 2);
+                editor.commit();
+                Toast.makeText(this, "passed" + theDay + "current" + 2, Toast.LENGTH_LONG).show();
+                aDayHasPassed = true;
+                day = 2;
+            } else{
+                aDayHasPassed = false;
+            }
+        }
+        if (rightNow.get(Calendar.DAY_OF_WEEK) == Calendar.TUESDAY){
+            if(day != 3){
+                aDayHasPassed = true;
+                day = 3;
+            } else{
+                aDayHasPassed = false;
+            }
+        }
+        if (rightNow.get(Calendar.DAY_OF_WEEK) == Calendar.WEDNESDAY){
+            if(day != 4){
+                aDayHasPassed = true;
+                day = 4;
+            } else{
+                aDayHasPassed = false;
+            }
+        }
+        if (rightNow.get(Calendar.DAY_OF_WEEK) == Calendar.THURSDAY){
+            if(day != 5){
+                aDayHasPassed = true;
+                day = 5;
+            } else{
+                aDayHasPassed = false;
+            }
+        }
+        if (rightNow.get(Calendar.DAY_OF_WEEK) == Calendar.FRIDAY){
+            if(day != 6){
+                aDayHasPassed = true;
+                day = 6;
+            } else{
+                aDayHasPassed = false;
+            }
+        }
+        if (rightNow.get(Calendar.DAY_OF_WEEK) == Calendar.SATURDAY){
+            if(day != 7){
+                aDayHasPassed = true;
+                day = 7;
+            } else{
+                aDayHasPassed = false;
+            }
+        }
+
+        /*String theDay = sharedPrefs.getString("day", "nothing"); //this gets the day of the week from shared profs
         if (!checkTheDay().equals(theDay)) { //if the current day doesn't match the saved day
             SharedPreferences.Editor editor = sharedPrefs.edit();
             editor.putString("day", checkTheDay()); //put the current day into shared prefs
             aDayHasPassed = true; //a day has passed
         } else {
             aDayHasPassed = false; //else a day has not passed
-        }
+        }*/
     }
-    boolean aDayHasPassed = false; //global var checking if a day has passed
+
     @Override
     public void onClick(View view) {
         //go to maps activity if home button is clicked
@@ -161,12 +233,27 @@ public class StatsActivity extends AppCompatActivity implements View.OnClickList
     @Override
     public void onSensorChanged(SensorEvent sensorEvent) {
         if(running){
+            //get shared preferences to get count
+            SharedPreferences sharedPrefs = getSharedPreferences("MyData", Context.MODE_PRIVATE);
+            SharedPreferences.Editor editor = sharedPrefs.edit();
+            editor.putInt("total_steps", (int) sensorEvent.values[0]);
+            editor.commit();
             //update the steps on the textView if the user is moving
-            tv_steps.setText(String.valueOf(sensorEvent.values[0]));
-            if (aDayHasPassed) {
+            tv_steps.setText(String.valueOf((int) sensorEvent.values[0]));
+            if (aDayHasPassed == true) {
+                //have to minus value from itself to get to zero, else it will not reset
+                //have to minus value from itself to get to zero, else it will not reset
+                int val = sharedPrefs.getInt("total_steps", 0);
+                editor.putInt("minus_steps", val);
                 dailySteps.setText("0");
+                //Toast.makeText(this, "" + day, Toast.LENGTH_LONG).show();
             } else {
-                dailySteps.setText(String.valueOf(sensorEvent.values[0]));
+                int minus = sharedPrefs.getInt("minus_steps", 0);
+                int daily_step = (((int) sensorEvent.values[0]) - minus);
+                dailySteps.setText(toString().valueOf(daily_step));
+                //put the number of steps in shared preferences
+                editor.putInt("total_steps", (int) sensorEvent.values[0]);
+                editor.commit();
             }
         }
     }
