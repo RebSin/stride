@@ -16,7 +16,9 @@
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.002" />
+        app:layout_constraintVertical_bias="0.002"
+        android:textSize="16dp"
+        android:textColor="#3471eb"/>
 
     <EditText
         android:id="@+id/title_editText"
@@ -42,7 +44,9 @@
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.092" />
+        app:layout_constraintVertical_bias="0.092"
+        android:textSize="16dp"
+        android:textColor="#3471eb"/>
 
     <EditText
         android:id="@+id/description_editText"
@@ -68,7 +72,9 @@
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.464" />
+        app:layout_constraintVertical_bias="0.464"
+        android:textSize="16dp"
+        android:textColor="#3471eb"/>
 
     <ImageView
         android:id="@+id/imgCapture"
@@ -92,20 +98,9 @@
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.929" />
-
-    <Button
-        android:id="@+id/button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:onClick="viewResults"
-        android:text="Button"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/createEntry_button"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.929" />
+        app:layout_constraintVertical_bias="0.929"
+        android:textColor="#ffffff"
+        android:backgroundTint="#3471eb"/>
 
     <TextView
         android:id="@+id/category_message"
@@ -117,7 +112,9 @@
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.22" />
+        app:layout_constraintVertical_bias="0.22"
+        android:textSize="16dp"
+        android:textColor="#3471eb"/>
 
     <RadioGroup
         android:id="@+id/button_group"
@@ -128,7 +125,7 @@
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.31">
+        app:layout_constraintVertical_bias="0.315">
 
         <RadioButton
             android:id="@+id/healthy_button"
@@ -137,16 +134,17 @@
             android:text="Healthy" />
 
         <RadioButton
-            android:id="@+id/unsure_button"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Unsure Button" />
-
-        <RadioButton
             android:id="@+id/unhealthy_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Unhealthy" />
+
+        <RadioButton
+            android:id="@+id/unsure_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Unsure" />
+
     </RadioGroup>
 
     <Button
@@ -159,7 +157,9 @@
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.8" />
+        app:layout_constraintVertical_bias="0.8"
+        android:textColor="#ffffff"
+        android:backgroundTint="#3471eb"/>
 
     <LinearLayout
         android:layout_width="match_parent"
