@@ -95,7 +95,7 @@ public class StatsActivity extends AppCompatActivity implements View.OnClickList
         amountHealthy.setText(numHealthy + " Healthy Foods");
         amountUnhealthy.setText(numUnhealthy + " Unhealthy Foods");
         amountUnsure.setText(numUnsure + " Unsure Foods");
-        goal.setText("Consming " + theGoal + " Healthy Foods");
+        goal.setText("Consuming " + theGoal + " Healthy Foods");
 
         //check to see if the user has met the goal they entered
         if(theGoal < numHealthy){
