@@ -391,4 +391,9 @@ https://stackoverflow.com/questions/9357668/how-to-store-image-in-sqlite-databas
 
 https://medium.com/@karthikganiga007/create-barchart-in-android-studio-14943339a211
 https://stackoverflow.com/questions/7389242/how-to-check-day-in-android
+
+https://stackoverflow.com/questions/36261515/google-maps-android-api-v2-wrong-marker-place
+https://stackoverflow.com/questions/23241257/bad-base-64-error
+https://stackoverflow.com/questions/5574673/what-is-the-easiest-way-to-get-the-current-day-of-the-week-in-android
+
 */
